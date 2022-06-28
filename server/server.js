@@ -1,6 +1,8 @@
+
 const express = require('express');
 const app = express();
 
+// TODO - Need to figure out how to move endpoints to the api/controllers.
 app.get("/api", (req, res) => {
     res.json({"users" : ["userOne", "userTwo"]})
 });

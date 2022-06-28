@@ -1,13 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import { useWSV } from './wsv.hooks';
 
-const WSVApp = () => {
+const WSV = () => {
 
-  const [backendData, setBackendData] = useState();
-
-  useEffect(() => {
-    fetch("/api").then(response => response.json()).then(data => setBackendData(data))
-  }, []);
-
+  const { backendData } = useWSV();
   
   return (
     <div>
@@ -17,4 +13,4 @@ const WSVApp = () => {
   )
 }
 
-export default WSVApp;
+export default WSV;
