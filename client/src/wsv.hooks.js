@@ -5,7 +5,7 @@ export const useWSV = () => {
     const [backendData, setBackendData] = useState();
 
     useEffect(() => {
-      fetch("/api").then(response => response.json()).then(data => setBackendData(data))
+      fetch("/statistics").then(response => response.json()).then(data => setBackendData(data))
     }, []);
 
     return { backendData };

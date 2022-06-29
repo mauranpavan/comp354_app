@@ -8,7 +8,7 @@ const WSV = () => {
   return (
     <div>
       <h1>Charts</h1>
-      {backendData && backendData.users.map((user, index) => (<span key={index}>{user}</span>))}
+      {backendData && backendData.message}
     </div>
   )
 }
