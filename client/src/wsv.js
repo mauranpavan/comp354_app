@@ -1,16 +1,16 @@
 import React from 'react'
-import { useWSV } from './wsv.hooks';
+import { Routes, Route } from "react-router-dom";
+import { Home } from './components/main-page/main-page';
+import { Charts } from './components/chart-page/chart-page';
 
-const WSV = () => {
+export const WSV = () => {
 
-  const { backendData } = useWSV();
-  
   return (
-    <div>
-      <h1>Charts</h1>
-      {backendData && backendData.message}
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/charts" element={<Charts />} />
+      </Routes>
+    </>
   )
 }
-
-export default WSV;

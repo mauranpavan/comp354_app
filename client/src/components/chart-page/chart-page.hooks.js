@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export const useHome = () => {
+export const useCharts = () => {
 
     const [backendData, setBackendData] = useState();
 
