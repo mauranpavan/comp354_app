@@ -1,0 +1,22 @@
+nav {
+    float: right;
+    margin: 5px 10px;
+}
+
+.charts-header {
+    margin: 0px 10px;
+}
+
+.charts-body {
+    display: block;
+    border-top: 1px solid grey;
+    margin: 0px 10px;
+}
+
+.filters {
+    margin: 30px 0px;
+}
+
+.chart-viewport {
+    margin: 30px 0px;
+}
