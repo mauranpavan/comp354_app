@@ -14,7 +14,12 @@ router.route("/")
                 console.error(err);
                 return;
             }
-            res.json({ "message": data });
+            
+            const allTime = (new Date("2000-01-01")).toISOString().split('T')[0];
+            const outputData = processData.processData(data, allTime, "All time");
+
+            res.json({ "message": outputData });
+
         });
     });
 
@@ -28,7 +33,7 @@ router.route("/year")
             }
 
             const oneYearAgo = (new Date(new Date().setFullYear(new Date().getFullYear() - 1))).toISOString().split('T')[0];
-            const outputData = processData.processData(data, oneYearAgo, "Year");
+            const outputData = processData.processData(data, oneYearAgo, "Yearly");
 
             res.json({ "message": outputData });
 
@@ -45,7 +50,7 @@ router.route("/month")
             }
 
             const oneMonthAgo = (new Date(new Date().setMonth(new Date().getMonth() - 1))).toISOString().split('T')[0];
-            const outputData = processData.processData(data, oneMonthAgo, "Month");
+            const outputData = processData.processData(data, oneMonthAgo, "Monthly");
 
             res.json({ "message": outputData });
 
@@ -62,7 +67,7 @@ router.route("/week")
             }
 
             const oneWeekAgo = (new Date(new Date().setDate(new Date().getDate() - 7))).toISOString().split('T')[0];
-            const outputData = processData.processData(data, oneWeekAgo, "Week");
+            const outputData = processData.processData(data, oneWeekAgo, "Weekly");
 
             res.json({ "message": outputData });
 
