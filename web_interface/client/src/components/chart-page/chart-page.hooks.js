@@ -1,40 +1,39 @@
 import { useCallback, useEffect, useState } from 'react';
-import { ChartType } from './chart-page.types';
+import { ChartType, FilterType } from './chart-page.types';
 
 export const useCharts = () => {
 
     const [chartData, setChartData] = useState();
     const [chartType, setChartType] = useState(ChartType.Bar);
+    const [filter, setFilter] = useState(FilterType.Daily);
 
     useEffect(() => {
-        fetch("/charts").then(response => response.json()).then(data => setChartData(data))
+        fetch("/charts/").then(response => response.json()).then(data => setChartData(data))
     }, []);
 
-    const onLastYearFilterClicked = useCallback(() => {
+    // Range handlers
+    const onRangeSelected = useCallback((event) => {
+        const value = event.currentTarget.value;
+
         if (!chartData) {
             console.log("Conditionally call fetch instead of always calling it. If all data is already parsed, why go parse it again?")
         }
-        fetch("/charts/year").then(response => response.json()).then(data => setChartData(data))
+
+        fetch(`/charts/${value}`).then(response => response.json()).then(data => setChartData(data))
+
     }, [chartData]);
 
-    const onLastMonthFilterClicked = useCallback(() => {
-        if (!chartData) {
-            console.log("Conditionally call fetch instead of always calling it. If all data is already parsed, why go parse it again?")
-        }
-        fetch("/charts/month").then(response => response.json()).then(data => setChartData(data))
-    }, [chartData]);
+    // Filter handlers
+    const onFilterTypeSelected = useCallback((event) => {
+        const value = event.currentTarget.value;
+        setFilter(value);
+    }, []);
 
-    const onLastWeekFilterClicked = useCallback(() => {
-        if (!chartData) {
-            console.log("Conditionally call fetch instead of always calling it. If all data is already parsed, why go parse it again?")
-        }
-        fetch("/charts/week").then(response => response.json()).then(data => setChartData(data))
-    }, [chartData]);
-
+    // Chart handlers
     const onChartTypeSelected = useCallback((event) => {
         const value = event.currentTarget.value;
         setChartType(value);
     }, []);
 
-    return { chartData, chartType, onLastYearFilterClicked, onLastMonthFilterClicked, onLastWeekFilterClicked, onChartTypeSelected };
+    return { chartData, chartType, filter, onRangeSelected, onFilterTypeSelected, onChartTypeSelected };
 }

@@ -2,37 +2,77 @@
 
 const express = require("express");
 const fs = require('fs');
+const processData = require("../services/charts.filtering.js");
 let router = express.Router();
 
 
 // [GET(/charts/)] - Gets data for all time (the default for when a user is routed to /charts)
 router.route("/")
     .get((req, res) => {
-        fs.readFile('../data/sample.csv', 'utf-8', (err, data) => {
+        fs.readFile('../data/data.csv', 'utf-8', (err, data) => {
             if (err) {
                 console.error(err);
                 return;
             }
-            res.json({ "message": data });
+            
+            const allTime = (new Date("2000-01-01")).toISOString().split('T')[0];
+            const outputData = processData.processData(data, allTime, "All time");
+
+            res.json({ "message": outputData });
+
         });
     });
 
 // [GET(/charts/year)] - Gets data for workouts that took place in the last year.
 router.route("/year")
     .get((req, res) => {
-        res.json({ "message": "Data filtered to show only last YEAR." })
+        fs.readFile('../data/data.csv', 'utf-8', (err, data) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+
+            const oneYearAgo = (new Date(new Date().setFullYear(new Date().getFullYear() - 1))).toISOString().split('T')[0];
+            const outputData = processData.processData(data, oneYearAgo, "Yearly");
+
+            res.json({ "message": outputData });
+
+        });
     });
 
 // [GET(/charts/month)] - Gets data for workouts that took place in the last month.
 router.route("/month")
     .get((req, res) => {
-        res.json({ "message": "Data filtered to show only last MONTH." })
+        fs.readFile('../data/data.csv', 'utf-8', (err, data) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+
+            const oneMonthAgo = (new Date(new Date().setMonth(new Date().getMonth() - 1))).toISOString().split('T')[0];
+            const outputData = processData.processData(data, oneMonthAgo, "Monthly");
+
+            res.json({ "message": outputData });
+
+        });
     });
 
 // [GET(/charts/week)] - Gets data for workouts that took place in the last week.
 router.route("/week")
     .get((req, res) => {
-        res.json({ "message": "Data filtered to show only last WEEK." })
+        fs.readFile('../data/data.csv', 'utf-8', (err, data) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+
+            const oneWeekAgo = (new Date(new Date().setDate(new Date().getDate() - 7))).toISOString().split('T')[0];
+            const outputData = processData.processData(data, oneWeekAgo, "Weekly");
+
+            res.json({ "message": outputData });
+
+        });
+
     });
 
 module.exports = router;
