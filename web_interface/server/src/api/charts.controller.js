@@ -14,7 +14,7 @@ router.route("/")
                 console.error(err);
                 return;
             }
-            res.json({ "message": "Fetch data" });
+            res.json({ "message": data });
         });
     });
 
