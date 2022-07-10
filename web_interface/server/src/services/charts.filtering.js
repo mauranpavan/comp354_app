@@ -6,12 +6,13 @@ function processData(data, startDate, period){
             const duration = [];
             const topSpeed = [];
             const avgSpeed = [];
+
             const table = data.split('\n').slice(1);
 
             table.forEach(row => {
                 const columns = row.split(',');
                 const now = (new Date()).toISOString().split('T')[0];
-                //const oneYearAgo = startDate; //(new Date(new Date().setFullYear(new Date().getFullYear() - 1))).toISOString().split('T')[0];
+                
             
                 if(startDate <= columns[1] && columns[1] <= now){
 
@@ -89,11 +90,11 @@ function processData(data, startDate, period){
 
             const outputData = [
 
-                [`${ period }ly calories: `, calSum],
-                [` ${ period }ly distance: `, distanceSum],
-                [` ${ period }ly duration: `, durationSum],
-                [` ${ period }ly top speed average: `, topSpeedAvg.toFixed(2)],
-                [` ${ period }ly average speed average: `, avgSpeedAvg.toFixed(2)]
+                [`${ period } calories: `, calSum],
+                [` ${ period } distance: `, distanceSum],
+                [` ${ period } duration: `, durationSum.toFixed(2)],
+                [` ${ period } top speed average: `, topSpeedAvg.toFixed(2)],
+                [` ${ period } average speed average: `, avgSpeedAvg.toFixed(2)]
 
             ];
 
@@ -104,9 +105,3 @@ function processData(data, startDate, period){
 };
 
 module.exports = { processData };
-
-
-
-
-
-
