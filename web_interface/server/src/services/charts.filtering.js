@@ -1,7 +1,7 @@
 
 function processData(data, startDate, period){
 
-	        const calories = [];
+	    const calories = [];
             const distance = [];
             const duration = [];
             const topSpeed = [];
