@@ -5,3 +5,10 @@ export const ChartType = {
     Box: "Box",
     Line: "Line"
 }
+
+export const FilterType = {
+    Daily: "Daily",
+    Weekly: "Weekly",
+    Monthly: "Monthly",
+    Yearly: "Yearly"
+}
