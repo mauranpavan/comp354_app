@@ -1,5 +1,4 @@
 nav {
-    float: right;
     margin: 5px 10px;
 }
 
@@ -13,14 +12,17 @@ nav {
     margin: 0px 10px;
 }
 
-.ranges {
-    margin: 30px 0px;
-}
-
-.filters {
-    margin: 30px 0px;
-}
-
 .chart-viewport {
     margin: 30px 0px;
+}
+
+.parameters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 80%;
+}
+
+.description {
+    max-width: 50%;
 }

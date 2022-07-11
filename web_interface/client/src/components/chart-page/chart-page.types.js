@@ -12,3 +12,17 @@ export const FilterType = {
     Monthly: "Monthly",
     Yearly: "Yearly"
 }
+
+export const RangeType = {
+    Week: "Week",
+    Month: "Month",
+    Year: "Year"
+}
+
+export const StatisticType = {
+    Distance: "Total Distance",
+    Calories: "Total Calories Burnt",
+    Duration: "Total Duration",
+    Elevation: "Total Elevation Gain",
+    Speed: "Average Speed"
+}
