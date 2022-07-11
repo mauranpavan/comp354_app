@@ -219,8 +219,18 @@ function compareNumbers(a, b) {
     return a - b;
 }
 
+/*
+* Reference: https://txtfiddle.com/~i44veub/remove-empty-lines
+*/
+function removeEmptyLinesFromFile(inputStr) {
+
+    return inputStr.split(/\r?\n/) // Split input text into an array of lines
+        .filter(line => line.trim() !== "") // Filter out lines that are empty or contain only whitespace
+        .join("\n");
+}
+
+
 function aggregateSameWeekWorkouts() {
-    console.log(dayjs('2022-04-26').isoWeek()); //year-month-day
 
     //Assign each value of the dailyOSArr to the respective Week Number
     dailyOSArr.filter(DailyOccurenceStatistics => {
@@ -468,8 +478,7 @@ function aggregateAllDailyOSIntoWeeklyOS() {
     aggregatedOutputContent += aggregateDailyOSIntoWeeklyOS(week52Arr) + `\n`;
     aggregatedOutputContent += aggregateDailyOSIntoWeeklyOS(week53Arr) + `\n`;
 
-    return aggregatedOutputContent;
-
+    return removeEmptyLinesFromFile(aggregatedOutputContent);
 }
 
 //Aggregate the values of the specified week number array into one
@@ -497,7 +506,7 @@ function aggregateDailyOSIntoWeeklyOS(weekNumArr) {
         return newWeeklyOccurenceStatistics;
     }
     else
-        return "";
+        return '';
 
 }
 
@@ -626,6 +635,6 @@ function calculateAverageDuration(weekNumArr) {
 //Calculate mov average speed
 function calculateMovingAverageSpeed() {
 
-    return 'test';
+    return 'w-test';
 
 }
