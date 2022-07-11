@@ -111,7 +111,7 @@ function findSameDayWorkouts() {
     console.log(duplicateSet);
 
     //Write Output file header
-    outputContent = 'workoutSummaryId,filterType,date,caloriesSum,distanceSum,durationSum,topSpeed,avgSpeed,overallBestSplit,numberOfWorkouts,avgCalories,avgDistance,avgDuration,movingSpeedAvg';
+    outputContent = 'workoutSummaryId,filterType,date,caloriesSum,distanceSum,durationSum,topSpeed,avgSpeed,overallBestSplit,numberOfWorkouts,avgCalories,avgDistance,avgDuration,movingSpeedAvg\n';
     writeOutputFile();
     writeDailyWorkoutSummary(duplicateSet);
 
