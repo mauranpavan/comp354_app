@@ -4,24 +4,25 @@ import { Link } from "react-router-dom";
 import { ChartType, FilterType, RangeType, StatisticType } from './chart-page.types';
 
 import './chart-page.css';
+import { PieChart } from '../graphs/pie.highchart';
 
 export const Charts = () => {
 
     const { chartData, filter, range, statistic, chartType, onDateRangeSelected, onFilterTypeSelected, onStatisticeSelected, onChartTypeSelected } = useCharts();
 
     return (
-        <div class="charts">
+        <div className="charts">
             <nav>
                 <Link to="/">Home</Link>
             </nav>
-            <div class="charts-header">
+            <div className="charts-header">
                 <h1>Your Data Visualized</h1>
-                <p class="description">Here, you can see your data visualized.</p>
+                <p className="description">Here, you can see your data visualized.</p>
             </div>
-            <div class="charts-body">
-                <div class="parameters">
-                    <div class="ranges">
-                        <h3 class="ranges-title">Ranges</h3>
+            <div className="charts-body">
+                <div className="parameters">
+                    <div className="ranges">
+                        <h3 className="ranges-title">Ranges</h3>
                         <p>Displaying Data Over the Last: {range}</p>
                         <select onChange={onDateRangeSelected}>
                             <option value={""}>-</option>
@@ -30,8 +31,8 @@ export const Charts = () => {
                             <option value={RangeType.Year}>Last {RangeType.Year}</option>
                         </select>
                     </div>
-                    <div class="filters">
-                        <h3 class="filters-title">Filters</h3>
+                    <div className="filters">
+                        <h3 className="filters-title">Filters</h3>
                         <p>Filtering by: {filter}</p>
                         <select onChange={onFilterTypeSelected}>
                             <option value={FilterType.Daily}>{FilterType.Daily}</option>
@@ -40,8 +41,8 @@ export const Charts = () => {
                             <option value={FilterType.Yearly}>{FilterType.Yearly}</option>
                         </select>
                     </div>
-                    <div class="stats">
-                        <h3 class="stats-title">Statistic</h3>
+                    <div className="stats">
+                        <h3 className="stats-title">Statistic</h3>
                         <p>Statistic: {statistic}</p>
                         <select onChange={onStatisticeSelected}>
                             <option value={StatisticType.Distance}>{StatisticType.Distance}</option>
@@ -52,7 +53,7 @@ export const Charts = () => {
                         </select>
                     </div>
                 </div>
-                <div class="chart-viewport">
+                <div className="chart-viewport">
                     <h2>{chartType} Chart</h2>
                     <p>Chart Type</p>
                     <select onChange={onChartTypeSelected}>
@@ -62,15 +63,19 @@ export const Charts = () => {
                         <option value={ChartType.Line}>Line</option>
                     </select>
                     <h4>Aggregated Stats</h4>
-                    <p class="description">
+                    <p className="description">
                         For the first iteration, we are aggregating the data for all statistics for demonstration purposes. In the second iteration, we will not aggregate, but rather
                         return the data points and graph appropriately for the chosen statistic, filter, and range. Range can be tested currently.
                     </p>
-                    {chartData && chartData.message}
+                    {(chartData && chartType === ChartType.Pie) && <PieChart title={getChartTitle(chartType, filter, statistic)} seriesData={chartData} />}
+                    {/* There would be 3 more lines for the other chart types. */}
                 </div>
-                {/* TODO (iteration #2) - render graph component. */}
             </div>
 
         </div>
     )
+}
+
+const getChartTitle = (charType, filter, statistic) => {
+    return `${charType} Chart of ${filter} ${statistic}`;
 }

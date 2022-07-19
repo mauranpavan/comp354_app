@@ -11,11 +11,11 @@ export const Home = () => {
             <nav>
                 <Link to="/charts">Charts</Link>
             </nav>
-            <div class="home-header">
+            <div className="home-header">
                 <h1>Workout Statistics & Visualization</h1>
-                <p class="description">Here you can view your workout statistics, both in numbers, on a map, or visualized in charts. Use the navigation to try each tool.</p>
+                <p className="description">Here you can view your workout statistics, both in numbers, on a map, or visualized in charts. Use the navigation to try each tool.</p>
             </div>
-            <div class="home-body">
+            <div className="home-body">
 
             </div>
         </div>
