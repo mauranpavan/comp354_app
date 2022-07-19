@@ -16,4 +16,3 @@
 4. For the front end, go to /client folder in another terminal.
 5. Run ```npm run start```. This should pull up your default browser on localhost:3000.
 
-SUCCESS
