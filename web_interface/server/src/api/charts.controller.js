@@ -15,13 +15,18 @@ router.route("/")
                 return;
             }
 
+            const filter = "Daily"; //Daily, Weekly, Monthly, Yearly
+            const statistics= "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
             const allTime = (new Date("2000-01-01")).toISOString().split('T')[0];
-            const outputData = processData.processData(data, allTime, "All time");
+            const outputData = processData.processData(data, allTime, "All time", filter, statistics);
 
             // TODO - Insert the correct data points from the parsed file FOR DEFAULT PARAMS (daily filter, total distance only) 
 
             // Currently, this works for categorical data.. so the format below would not work for continous data like line plot.
             // Either way, all of our stats are categorical, unless we decide to plot one stat against another like distance vs average speed.
+            
+            console.log(outputData);
+
             res.json({
                 "name": "All Time Data",
                 "data": [
@@ -60,8 +65,12 @@ router.route("/year")
                 return;
             }
 
+            const filter = "Daily"; //Daily, Weekly, Monthly, Yearly
+            const statistics= "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
             const oneYearAgo = (new Date(new Date().setFullYear(new Date().getFullYear() - 1))).toISOString().split('T')[0];
-            const outputData = processData.processData(data, oneYearAgo, "Yearly");
+            const outputData = processData.processData(data, oneYearAgo, "Yearly", filter, statistics);
+
+            console.log(outputData);
 
             res.json({
                 "name": "Data over Last Year",
@@ -101,8 +110,12 @@ router.route("/month")
                 return;
             }
 
+            const filter = "Daily"; //Daily, Weekly, Monthly, Yearly
+            const statistics= "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
             const oneMonthAgo = (new Date(new Date().setMonth(new Date().getMonth() - 1))).toISOString().split('T')[0];
-            const outputData = processData.processData(data, oneMonthAgo, "Monthly");
+            const outputData = processData.processData(data, oneMonthAgo, "Monthly", filter, statistics);
+
+            console.log(outputData);
 
             res.json({
                 "name": "Data over Last Month",
@@ -142,8 +155,12 @@ router.route("/week")
                 return;
             }
 
+            const filter = "Daily"; //Daily, Weekly, Monthly, Yearly
+            const statistics= "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
             const oneWeekAgo = (new Date(new Date().setDate(new Date().getDate() - 7))).toISOString().split('T')[0];
-            const outputData = processData.processData(data, oneWeekAgo, "Weekly");
+            const outputData = processData.processData(data, oneWeekAgo, "Weekly", filter, statistics);
+
+            console.log(outputData);
 
             res.json({
                 "name": "Data over last Week",
