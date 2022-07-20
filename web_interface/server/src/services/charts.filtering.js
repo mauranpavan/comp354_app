@@ -1,12 +1,13 @@
 
-function processData(data, startDate, period){
+function processData(data, startDate, period, filter, statistics){
 
-	    const calories = [];
+	        const dates = [];
+            const calories = [];
             const distance = [];
             const duration = [];
             const topSpeed = [];
             const avgSpeed = [];
-
+            
             const table = data.split('\n').slice(1);
 
             table.forEach(row => {
@@ -16,12 +17,14 @@ function processData(data, startDate, period){
             
                 if(startDate <= columns[1] && columns[1] <= now){
 
+                    const Dates = columns[1];
                     const Calories = columns[2];
                     const Distance = columns[3];
                     const Duration = columns[4];
                     const TopSpeed = columns[5];
                     const AvgSpeed = columns[6];
 
+                    dates.push(Dates);
                     calories.push(Calories);
                     distance.push(Distance);
                     duration.push(Duration);
@@ -32,7 +35,6 @@ function processData(data, startDate, period){
             }
             
             })
-            
 
             const caloriesNum = calories.map(str => {
                 return Number(str);
@@ -54,6 +56,71 @@ function processData(data, startDate, period){
                 return Number(str);
             });
 
+            if(filter == "Daily"){
+
+                if(statistics == "Total Distance"){
+
+                    const outputData = [
+
+                        [`Dates: `, dates],
+                        [`${ period } ${ filter } ${ statistics }: `, distanceNum]
+
+                    ];
+
+                    return outputData
+                }
+
+                if(statistics == "Total Calories Burnt"){
+
+                    const outputData = [
+
+                        [`Dates: `, dates],
+                        [`${ period } ${ filter } ${ statistics }: `, caloriesNum]
+
+                    ];
+
+                    return outputData
+                }
+
+                if(statistics == "Total Duration"){
+
+                    const outputData = [
+
+                        [`Dates: `, dates],
+                        [`${ period } ${ filter } ${ statistics }: `, durationNum]
+
+                    ];
+
+                    return outputData
+                }
+
+                if(statistics == "Top Speed"){
+
+                    const outputData = [
+
+                        [`Dates: `, dates],
+                        [`${ period } ${ filter } ${ statistics }: `, topSpeedNum]
+
+                    ];
+
+                    return outputData
+                }
+
+                if(statistics == "Average Speed"){
+
+                    const outputData = [
+
+                        [`Dates: `, dates],
+                        [`${ period } ${ filter } ${ statistics }: `, avgSpeedNum]
+
+                    ];
+
+                    return outputData
+                }
+                
+            }
+
+            /*
             let calSum = 0;
 
             for (let i = 0; i < caloriesNum.length; i += 1) {
@@ -99,6 +166,7 @@ function processData(data, startDate, period){
             ];
 
             return outputData;
+            */
 
 
 
