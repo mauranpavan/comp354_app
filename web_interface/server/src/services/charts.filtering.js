@@ -7,6 +7,8 @@ function processData(data, startDate, period, filter, statistics){
             const duration = [];
             const topSpeed = [];
             const avgSpeed = [];
+            const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
             
             const table = data.split('\n').slice(1);
 
@@ -56,15 +58,143 @@ function processData(data, startDate, period, filter, statistics){
                 return Number(str);
             });
 
+
             if(filter == "Daily"){
 
                 if(statistics == "Total Distance"){
 
+                    const outputData = [];
+
+                    for (let i = 0; i < dates.length; i++){
+                        outputData.push(
+
+                            {
+                                date: `${ dates[i] }`,
+                                day: `${ weekday[new Date(dates[i]).getDay()] }`, // would become a day of the week
+                                dayNum: `${ new Date(dates[i]).getDate()+1 }`,
+                                month: `${ month[new Date(dates[i]).getMonth()] }`,
+                                year: `${ new Date(dates[i]).getFullYear() }`,
+                                distance: distanceNum[i],
+                                color: '#3498db'
+                            }
+
+                        );
+                    }
+
+                    return outputData
+                }
+
+                if(statistics == "Total Calories Burnt"){
+
+                    const outputData = [];
+
+                    for (let i = 0; i < dates.length; i++){
+                        outputData.push(
+
+                            {
+                                date: `${ dates[i] }`,
+                                day: `${ weekday[new Date(dates[i]).getDay()] }`, // would become a day of the week
+                                dayNum: `${ new Date(dates[i]).getDate()+1 }`,
+                                month: `${ month[new Date(dates[i]).getMonth()] }`,
+                                year: `${ new Date(dates[i]).getFullYear() }`,
+                                calories: caloriesNum[i],
+                                color: '#3498db'
+                            }
+
+                        );
+                    }
+
+                    return outputData
+                }
+
+                if(statistics == "Total Duration"){
+
+                    const outputData = [];
+
+                    for (let i = 0; i < dates.length; i++){
+                        outputData.push(
+
+                            {
+                                date: `${ dates[i] }`,
+                                day: `${ weekday[new Date(dates[i]).getDay()] }`, // would become a day of the week
+                                dayNum: `${ new Date(dates[i]).getDate()+1 }`,
+                                month: `${ month[new Date(dates[i]).getMonth()] }`,
+                                year: `${ new Date(dates[i]).getFullYear() }`,
+                                duration: durationNum[i],
+                                color: '#3498db'
+                            }
+
+                        );
+                    }
+
+                    return outputData
+                }
+
+                if(statistics == "Top Speed"){
+
+                    const outputData = [];
+
+                    for (let i = 0; i < dates.length; i++){
+                        outputData.push(
+
+                            {
+                                date: `${ dates[i] }`,
+                                day: `${ weekday[new Date(dates[i]).getDay()] }`, // would become a day of the week
+                                dayNum: `${ new Date(dates[i]).getDate()+1 }`,
+                                month: `${ month[new Date(dates[i]).getMonth()] }`,
+                                year: `${ new Date(dates[i]).getFullYear() }`,
+                                Top_speed:topSpeedNum[i],
+                                color: '#3498db'
+                            }
+
+                        );
+                    }
+
+                    return outputData
+                }
+
+                if(statistics == "Average Speed"){
+
+                    const outputData = [];
+
+                    for (let i = 0; i < dates.length; i++){
+                        outputData.push(
+
+                            {
+                                date: `${ dates[i] }`,
+                                day: `${ weekday[new Date(dates[i]).getDay()] }`, // would become a day of the week
+                                dayNum: `${ new Date(dates[i]).getDate()+1 }`,
+                                month: `${ month[new Date(dates[i]).getMonth()] }`,
+                                year: `${ new Date(dates[i]).getFullYear() }`,
+                                Average_speed: avgSpeedNum[i],
+                                color: '#3498db'
+                            }
+
+                        );
+                    }
+
+                    return outputData
+                }
+                
+            } //end Daily Filter
+
+            if(filter == period){
+
+                if(statistics == "Total Distance"){
+
+                    let distanceSum = 0;
+
+                    for (let i = 0; i < distanceNum.length; i++) {
+                        distanceSum += distanceNum[i];
+                    }
+
                     const outputData = [
 
-                        [`Dates: `, dates],
-                        [`${ period } ${ filter } ${ statistics }: `, distanceNum]
-
+                            {
+                                filter: `${ period }`,
+                                distance: distanceSum,
+                                color: '#3498db'
+                            }
                     ];
 
                     return outputData
@@ -72,11 +202,19 @@ function processData(data, startDate, period, filter, statistics){
 
                 if(statistics == "Total Calories Burnt"){
 
+                    let calSum = 0;
+
+                    for (let i = 0; i < caloriesNum.length; i += 1) {
+                        calSum += caloriesNum[i];
+                    }
+
                     const outputData = [
 
-                        [`Dates: `, dates],
-                        [`${ period } ${ filter } ${ statistics }: `, caloriesNum]
-
+                            {
+                                filter: `${ period }`,
+                                calories: calSum,
+                                color: '#3498db'
+                            }
                     ];
 
                     return outputData
@@ -84,11 +222,19 @@ function processData(data, startDate, period, filter, statistics){
 
                 if(statistics == "Total Duration"){
 
+                    let durationSum = 0;
+
+                    for (let i = 0; i < durationNum.length; i += 1) {
+                        durationSum += durationNum[i];
+                    }
+
                     const outputData = [
 
-                        [`Dates: `, dates],
-                        [`${ period } ${ filter } ${ statistics }: `, durationNum]
-
+                            {
+                                filter: `${ period }`,
+                                duration: durationSum.toFixed(2),
+                                color: '#3498db'
+                            }
                     ];
 
                     return outputData
@@ -96,11 +242,21 @@ function processData(data, startDate, period, filter, statistics){
 
                 if(statistics == "Top Speed"){
 
+                    let topSpeedSum = 0;
+
+                    for (let i = 0; i < topSpeedNum.length; i += 1) {
+                        topSpeedSum += topSpeedNum[i];
+                    }
+
+                    var topSpeedAvg = topSpeedSum / topSpeedNum.length;
+
                     const outputData = [
 
-                        [`Dates: `, dates],
-                        [`${ period } ${ filter } ${ statistics }: `, topSpeedNum]
-
+                            {
+                                filter: `${ period }`,
+                                avg_top_speed: topSpeedAvg.toFixed(2),
+                                color: '#3498db'
+                            }
                     ];
 
                     return outputData
@@ -108,17 +264,46 @@ function processData(data, startDate, period, filter, statistics){
 
                 if(statistics == "Average Speed"){
 
+                    let avgSpeedSum = 0;
+
+                    for (let i = 0; i < avgSpeedNum.length; i += 1) {
+                        avgSpeedSum += avgSpeedNum[i];
+                    }
+            
+                    var avgSpeedAvg = avgSpeedSum / avgSpeedNum.length;
+
                     const outputData = [
 
-                        [`Dates: `, dates],
-                        [`${ period } ${ filter } ${ statistics }: `, avgSpeedNum]
-
+                            {
+                                filter: `${ period }`,
+                                avg_speed_avg: avgSpeedAvg.toFixed(2),
+                                color: '#3498db'
+                            }
                     ];
 
                     return outputData
                 }
                 
-            }
+            } //end filter = period
+
+            if(filter == "Weekly"){
+
+                return "success W"
+
+            } //end Weekly
+
+            if(filter == "Monthly"){
+
+                return "success M"
+                
+            } //end Montly
+
+            if(filter == "Yearly"){
+
+                return "success Y"
+                
+            } //end Yearly
+
 
             /*
             let calSum = 0;
