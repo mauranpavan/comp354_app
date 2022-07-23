@@ -23,7 +23,7 @@ export const Charts = () => {
                 <div className="parameters">
                     <div className="ranges">
                         <h3 className="ranges-title">Ranges</h3>
-                        <p>Displaying Data Over the Last: {range}</p>
+                        <p>Displaying Data Over {range === "" ? "All Time" : `Last ${range}`}</p>
                         <select onChange={onDateRangeSelected}>
                             <option value={""}>-</option>
                             <option value={RangeType.Week}>Last {RangeType.Week}</option>
@@ -36,9 +36,9 @@ export const Charts = () => {
                         <p>Filtering by: {filter}</p>
                         <select onChange={onFilterTypeSelected}>
                             <option value={FilterType.Daily}>{FilterType.Daily}</option>
-                            <option value={FilterType.Weekly}>{FilterType.Weekly}</option>
-                            <option value={FilterType.Monthly}>{FilterType.Monthly}</option>
-                            <option value={FilterType.Yearly}>{FilterType.Yearly}</option>
+                            <option value={FilterType.Weekly} disabled={range === RangeType.Week}>{FilterType.Weekly}</option>
+                            <option value={FilterType.Monthly} disabled={range === RangeType.Week || range === RangeType.Month}>{FilterType.Monthly}</option>
+                            <option value={FilterType.Yearly} disabled={range !== ""}>{FilterType.Yearly}</option>
                         </select>
                     </div>
                     <div className="stats">
