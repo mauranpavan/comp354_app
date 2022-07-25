@@ -23,9 +23,9 @@ export const Charts = () => {
                 <div className="parameters">
                     <div className="ranges">
                         <h3 className="ranges-title">Ranges</h3>
-                        <p>Displaying Data Over {range === "" ? "All Time" : `Last ${range}`}</p>
-                        <select value={range} onChange={onDateRangeSelected}>
-                            <option value={""}>-</option>
+                        <p>Displaying Data Over {range === RangeType.Ever ? "All Time" : `Last ${range}`}</p>
+                        <select onChange={onDateRangeSelected}>
+                            <option value={RangeType.Ever}>All Time</option>
                             <option value={RangeType.Week}>Last {RangeType.Week}</option>
                             <option value={RangeType.Month}>Last {RangeType.Month}</option>
                             <option value={RangeType.Year}>Last {RangeType.Year}</option>
@@ -38,7 +38,7 @@ export const Charts = () => {
                             <option value={FilterType.Daily}>{FilterType.Daily}</option>
                             <option value={FilterType.Weekly} disabled={range === RangeType.Week}>{FilterType.Weekly}</option>
                             <option value={FilterType.Monthly} disabled={range === RangeType.Week || range === RangeType.Month}>{FilterType.Monthly}</option>
-                            <option value={FilterType.Yearly} disabled={range !== ""}>{FilterType.Yearly}</option>
+                            <option value={FilterType.Yearly} disabled={range !== RangeType.Ever}>{FilterType.Yearly}</option>
                         </select>
                     </div>
                     <div className="stats">
