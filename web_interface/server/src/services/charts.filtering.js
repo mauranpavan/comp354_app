@@ -1,5 +1,6 @@
+const compressionFunction = require("./charts.filtering.compression.js");
 
-function processData(data, startDate, period, filter, statistics){
+function processData(data, range, filter, statistics){
 
 	        const dates = [];
             const calories = [];
@@ -7,24 +8,232 @@ function processData(data, startDate, period, filter, statistics){
             const duration = [];
             const topSpeed = [];
             const avgSpeed = [];
-            const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-            const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            //const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+            //const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
             
-            const table = data.split('\n').slice(1);
+            //const table = (data.split('\n').slice(1));
 
+            const table = (data.split('\n').slice(1)).map(function(element){
+
+                return {id: element.split(',')[[0][0]], date: element.split(',')[[1][0]], 
+                calories: element.split(',')[[2][0]], distance: element.split(',')[[3][0]],
+                duration: element.split(',')[[4][0]], top_speed: element.split(',')[[5][0]],
+                avg_speed: (element.split(',')[[6][0]]).replace('\r', '')
+                };
+            });
+
+            let startDate;
+            let now;
+            let tableRange;
+
+            switch(range){
+
+                case "All time":
+                    startDate = (new Date("2000-01-01")).toISOString().split('T')[0];
+                    now = (new Date()).toISOString().split('T')[0];
+
+                    tableRange = table.filter(function(element){
+                        if(startDate <= element.date && element.date <= now){
+                            return element;
+                        }
+
+                    });
+                    break;
+
+                case "Yearly":
+                    startDate = (new Date(new Date().setFullYear(new Date().getFullYear() - 1))).toISOString().split('T')[0];
+                    now = (new Date()).toISOString().split('T')[0];
+                    
+                    tableRange = table.filter(function(element){
+                        if(startDate <= element.date && element.date <= now){
+                            return element;
+                        }
+
+                    });
+                    break;
+
+                case "Monthly":
+                    startDate = (new Date(new Date().setMonth(new Date().getMonth() - 1))).toISOString().split('T')[0];
+                    now = (new Date()).toISOString().split('T')[0];
+
+                    tableRange = table.filter(function(element){
+                        if(startDate <= element.date && element.date <= now){
+                            return element;
+                        }
+
+                    });
+                    break;
+
+                case "Weekly":
+                    startDate = (new Date(new Date().setDate(new Date().getDate() - 7))).toISOString().split('T')[0];
+                    now = (new Date()).toISOString().split('T')[0];
+
+                    tableRange = table.filter(function(element){
+                        if(startDate <= element.date && element.date <= now){
+                            return element;
+                        }
+
+                    });
+                    break;
+
+                default:
+                    console.log("default")
+
+            };
+            /*
+            var sum = 0;
+            tableRange.map(element => {
+                sum += Number(element.distance);
+            });
+            */
+
+            let filteredData;
+
+            switch(filter){
+
+                case "Daily":
+                    filteredData = compressionFunction.getDailyData(tableRange, statistics);
+                    break;
+
+                case "Weekly":
+                    filteredData = compressionFunction.getWeeklyData(tableRange, statistics, range, filter);
+                    console.log("Weekly success");
+                    break;
+
+                case "Monthly":
+                    filteredData = compressionFunction.getMonthlyData(tableRange, statistics, range, filter);
+                    console.log("Monthly success");
+                    break;
+
+                case "Yearly":
+                    filteredData = compressionFunction.getYearlyData(tableRange, statistics, range, filter);
+                    console.log("Yearly success");
+                    break;
+
+            };
+
+            //console.log("filteredData", filteredData);
+            //console.log("distance sum:", sum);
+            return filteredData;
+
+/*
+            let outputData;
+
+            switch(statistics){
+
+                case "Total Distance":
+                    outputData = filteredData.map(function(element){
+                        return {
+                                date: element.date,
+                                day: `${ weekday[new Date(element.date).getDay() + 1] }`, // would become a day of the week
+                                dayNum: `${ new Date(element.date).getDate() + 1 }`,
+                                month: `${ month[new Date(element.date).getMonth()] }`,
+                                year: `${ new Date(element.date).getFullYear() }`,
+                                distance: Number(element.distance),
+                                color: '#3498db'
+                            }
+                    });
+                    console.log("Total Distance Success");
+                    break;
+
+                case "Total Calories Burnt":
+                    outputData = filteredData.map(function(element){
+                        return {
+                                date: element.date,
+                                day: `${ weekday[new Date(element.date).getDay() + 1] }`, // would become a day of the week
+                                dayNum: `${ new Date(element.date).getDate() + 1 }`,
+                                month: `${ month[new Date(element.date).getMonth()] }`,
+                                year: `${ new Date(element.date).getFullYear() }`,
+                                calories: Number(element.calories),
+                                color: '#3498db'
+                            }
+                    });
+                    console.log("Total Calories Burnt Success");
+                    break;
+
+                case "Total Duration":
+                    outputData = filteredData.map(function(element){
+                        return {
+                                date: element.date,
+                                day: `${ weekday[new Date(element.date).getDay() + 1] }`, // would become a day of the week
+                                dayNum: `${ new Date(element.date).getDate() + 1 }`,
+                                month: `${ month[new Date(element.date).getMonth()] }`,
+                                year: `${ new Date(element.date).getFullYear() }`,
+                                duration: Number(element.duration),
+                                color: '#3498db'
+                            }
+                    });
+                    console.log("Total Duration Success");
+                    break;
+
+                case "Top Speed":
+                    outputData = filteredData.map(function(element){
+                        return {
+                                date: element.date,
+                                day: `${ weekday[new Date(element.date).getDay() + 1] }`, // would become a day of the week
+                                dayNum: `${ new Date(element.date).getDate() + 1 }`,
+                                month: `${ month[new Date(element.date).getMonth()] }`,
+                                year: `${ new Date(element.date).getFullYear() }`,
+                                top_speed: Number(element.top_speed),
+                                color: '#3498db'
+                            }
+                    });
+                    console.log("Top Speed Success");
+                    break;
+
+                case "Average Speed":
+                    outputData = filteredData.map(function(element){
+                        return {
+                                date: element.date,
+                                day: `${ weekday[new Date(element.date).getDay() + 1] }`, // would become a day of the week
+                                dayNum: `${ new Date(element.date).getDate() + 1 }`,
+                                month: `${ month[new Date(element.date).getMonth()] }`,
+                                year: `${ new Date(element.date).getFullYear() }`,
+                                avg_speed: Number(element.avg_speed),
+                                color: '#3498db'
+                            }
+                    });
+                    console.log("Average Speed Success");
+                    break;
+
+
+            };
+*/
+
+            console.log(outputData);
+
+            return outputData;
+
+
+
+            /*
+            const dataTable = (data.split('\n').slice(1)).map(function(element){
+                return (element.split(','));
+            });
+            */
+
+            //console.log("table", dataTable[0][1]);
+
+            //console.log("table: ", table)
+            //console.log(test());
+/*
             table.forEach(row => {
-                const columns = row.split(',');
+                const rows = row.split(',');
+                //console.log(rows.map(element));
+                //console.log("Rows: ", rows)
                 const now = (new Date()).toISOString().split('T')[0];
                 
             
-                if(startDate <= columns[1] && columns[1] <= now){
+                if(startDate <= rows[1] && rows[1] <= now){
 
-                    const Dates = columns[1];
-                    const Calories = columns[2];
-                    const Distance = columns[3];
-                    const Duration = columns[4];
-                    const TopSpeed = columns[5];
-                    const AvgSpeed = columns[6];
+
+
+                    const Dates = rows[1];
+                    const Calories = rows[2];
+                    const Distance = rows[3];
+                    const Duration = rows[4];
+                    const TopSpeed = rows[5];
+                    const AvgSpeed = rows[6];
 
                     dates.push(Dates);
                     calories.push(Calories);
@@ -178,7 +387,7 @@ function processData(data, startDate, period, filter, statistics){
                 
             } //end Daily Filter
 
-            if(filter == period){
+            if(filter == range){
 
                 if(statistics == "Total Distance"){
 
@@ -191,7 +400,7 @@ function processData(data, startDate, period, filter, statistics){
                     const outputData = [
 
                             {
-                                filter: `${ period }`,
+                                filter: `${ range }`,
                                 distance: distanceSum,
                                 color: '#3498db'
                             }
@@ -211,7 +420,7 @@ function processData(data, startDate, period, filter, statistics){
                     const outputData = [
 
                             {
-                                filter: `${ period }`,
+                                filter: `${ range }`,
                                 calories: calSum,
                                 color: '#3498db'
                             }
@@ -231,7 +440,7 @@ function processData(data, startDate, period, filter, statistics){
                     const outputData = [
 
                             {
-                                filter: `${ period }`,
+                                filter: `${ range }`,
                                 duration: durationSum.toFixed(2),
                                 color: '#3498db'
                             }
@@ -253,7 +462,7 @@ function processData(data, startDate, period, filter, statistics){
                     const outputData = [
 
                             {
-                                filter: `${ period }`,
+                                filter: `${ range }`,
                                 avg_top_speed: topSpeedAvg.toFixed(2),
                                 color: '#3498db'
                             }
@@ -275,7 +484,7 @@ function processData(data, startDate, period, filter, statistics){
                     const outputData = [
 
                             {
-                                filter: `${ period }`,
+                                filter: `${ range }`,
                                 avg_speed_avg: avgSpeedAvg.toFixed(2),
                                 color: '#3498db'
                             }
@@ -284,7 +493,7 @@ function processData(data, startDate, period, filter, statistics){
                     return outputData
                 }
                 
-            } //end filter = period
+            } //end filter = range
 
             if(filter == "Weekly"){
 
@@ -304,7 +513,7 @@ function processData(data, startDate, period, filter, statistics){
                 
             } //end Yearly
 
-
+*/
             /*
             let calSum = 0;
 
@@ -342,11 +551,11 @@ function processData(data, startDate, period, filter, statistics){
 
             const outputData = [
 
-                [`${ period } calories: `, calSum],
-                [` ${ period } distance: `, distanceSum],
-                [` ${ period } duration: `, durationSum.toFixed(2)],
-                [` ${ period } top speed average: `, topSpeedAvg.toFixed(2)],
-                [` ${ period } average speed average: `, avgSpeedAvg.toFixed(2)]
+                [`${ range } calories: `, calSum],
+                [` ${ range } distance: `, distanceSum],
+                [` ${ range } duration: `, durationSum.toFixed(2)],
+                [` ${ range } top speed average: `, topSpeedAvg.toFixed(2)],
+                [` ${ range } average speed average: `, avgSpeedAvg.toFixed(2)]
 
             ];
 
