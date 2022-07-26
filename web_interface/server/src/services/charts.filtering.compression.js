@@ -1,8 +1,6 @@
 function getDailyData(tableRange, statistics){
 
     let outputData;
-    const weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const month = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
             
 
     switch(statistics){
@@ -11,10 +9,6 @@ function getDailyData(tableRange, statistics){
             outputData = tableRange.map(function(element){
                 return {
                         date: element.date,
-                        day: `${ weekday[new Date(element.date).getDay() + 1] }`, // would become a day of the week
-                        dayNum: `${ new Date(element.date).getDate() + 1 }`,
-                        month: `${ month[new Date(element.date).getMonth()] }`,
-                        year: `${ new Date(element.date).getFullYear() }`,
                         distance: Number(element.distance),
                         color: '#3498db'
                     }
@@ -26,10 +20,6 @@ function getDailyData(tableRange, statistics){
             outputData = tableRange.map(function(element){
                 return {
                         date: element.date,
-                      day: `${ weekday[new Date(element.date).getDay() + 1] }`, // would become a day of the week
-                        dayNum: `${ new Date(element.date).getDate() + 1 }`,
-                        month: `${ month[new Date(element.date).getMonth()] }`,
-                        year: `${ new Date(element.date).getFullYear() }`,
                         calories: Number(element.calories),
                         color: '#3498db'
                     }
@@ -41,10 +31,6 @@ function getDailyData(tableRange, statistics){
             outputData = tableRange.map(function(element){
                 return {
                         date: element.date,
-                        day: `${ weekday[new Date(element.date).getDay() + 1] }`, // would become a day of the week
-                        dayNum: `${ new Date(element.date).getDate() + 1 }`,
-                        month: `${ month[new Date(element.date).getMonth()] }`,
-                        year: `${ new Date(element.date).getFullYear() }`,
                         duration: Number(element.duration),
                         color: '#3498db'
                     }
@@ -56,10 +42,6 @@ function getDailyData(tableRange, statistics){
             outputData = tableRange.map(function(element){
                 return {
                         date: element.date,
-                         day: `${ weekday[new Date(element.date).getDay() + 1] }`, // would become a day of the week
-                        dayNum: `${ new Date(element.date).getDate() + 1 }`,
-                        month: `${ month[new Date(element.date).getMonth()] }`,
-                        year: `${ new Date(element.date).getFullYear() }`,
                         top_speed: Number(element.top_speed),
                         color: '#3498db'
                     }
@@ -71,10 +53,6 @@ function getDailyData(tableRange, statistics){
             outputData = tableRange.map(function(element){
                 return {
                         date: element.date,
-                        day: `${ weekday[new Date(element.date).getDay() + 1] }`, // would become a day of the week
-                        dayNum: `${ new Date(element.date).getDate() + 1 }`,
-                        month: `${ month[new Date(element.date).getMonth()] }`,
-                        year: `${ new Date(element.date).getFullYear() }`,
                         avg_speed: Number(element.avg_speed),
                         color: '#3498db'
                     }
