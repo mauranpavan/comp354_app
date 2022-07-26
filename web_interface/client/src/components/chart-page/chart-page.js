@@ -24,7 +24,7 @@ export const Charts = () => {
                     <div className="ranges">
                         <h3 className="ranges-title">Ranges</h3>
                         <p>Displaying Data Over {range === "" ? "All Time" : `Last ${range}`}</p>
-                        <select onChange={onDateRangeSelected}>
+                        <select value={range} onChange={onDateRangeSelected}>
                             <option value={""}>-</option>
                             <option value={RangeType.Week}>Last {RangeType.Week}</option>
                             <option value={RangeType.Month}>Last {RangeType.Month}</option>
@@ -34,7 +34,7 @@ export const Charts = () => {
                     <div className="filters">
                         <h3 className="filters-title">Filters</h3>
                         <p>Filtering by: {filter}</p>
-                        <select onChange={onFilterTypeSelected}>
+                        <select value={filter} onChange={onFilterTypeSelected}>
                             <option value={FilterType.Daily}>{FilterType.Daily}</option>
                             <option value={FilterType.Weekly} disabled={range === RangeType.Week}>{FilterType.Weekly}</option>
                             <option value={FilterType.Monthly} disabled={range === RangeType.Week || range === RangeType.Month}>{FilterType.Monthly}</option>
@@ -44,7 +44,7 @@ export const Charts = () => {
                     <div className="stats">
                         <h3 className="stats-title">Statistic</h3>
                         <p>Statistic: {statistic}</p>
-                        <select onChange={onStatisticeSelected}>
+                        <select value={statistic} onChange={onStatisticeSelected}>
                             <option value={StatisticType.Distance}>{StatisticType.Distance}</option>
                             <option value={StatisticType.Calories}>{StatisticType.Calories}</option>
                             <option value={StatisticType.Duration}>{StatisticType.Duration}</option>

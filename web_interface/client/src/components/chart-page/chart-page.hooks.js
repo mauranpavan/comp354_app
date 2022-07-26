@@ -24,6 +24,7 @@ export const useCharts = () => {
     const onDateRangeSelected = useCallback((event) => {
         const value = event.currentTarget.value;
         setRange(value);
+        setFilter(FilterType.Daily);
     }, []);
 
     // Statistic handlers
