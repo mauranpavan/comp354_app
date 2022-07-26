@@ -17,8 +17,7 @@ router.route("/")
 
             const filter = "Daily"; //Daily, Weekly, Monthly, Yearly
             const statistics = "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
-            const allTime = (new Date("2000-01-01")).toISOString().split('T')[0];
-            const outputData = processData.processData(data, allTime, "All time", filter, statistics);
+            const outputData = processData.processData(data, "All time", filter, statistics);
 
             // TODO - Insert the correct data points from the parsed file FOR DEFAULT PARAMS (daily filter, total distance only) 
 
@@ -29,7 +28,7 @@ router.route("/")
                 "name": "All Time Data",
                 "data": outputData
             });
-
+            
             res.json({
                 "name": "All Time Data",
                 "data": outputData
@@ -49,14 +48,13 @@ router.route("/year")
 
             const filter = "Daily"; //Daily, Weekly, Monthly, Yearly
             const statistics = "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
-            const oneYearAgo = (new Date(new Date().setFullYear(new Date().getFullYear() - 1))).toISOString().split('T')[0];
-            const outputData = processData.processData(data, oneYearAgo, "Yearly", filter, statistics);
-
+            const outputData = processData.processData(data, "Yearly", filter, statistics);
+            
             console.log({
                 "name": "Data over Last Year",
                 "data": outputData
             });
-
+            
             res.json({
                 "name": "Data over Last Year",
                 "data": outputData
@@ -76,14 +74,13 @@ router.route("/month")
 
             const filter = "Daily"; //Daily, Weekly, Monthly, Yearly
             const statistics = "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
-            const oneMonthAgo = (new Date(new Date().setMonth(new Date().getMonth() - 1))).toISOString().split('T')[0];
-            const outputData = processData.processData(data, oneMonthAgo, "Monthly", filter, statistics);
-
+            const outputData = processData.processData(data, "Monthly", filter, statistics);
+            
             console.log({
                 "name": "Data over Last Month",
                 "data": outputData
             });
-
+            
             res.json({
                 "name": "Data over Last Month",
                 "data": outputData
@@ -103,14 +100,13 @@ router.route("/week")
 
             const filter = "Daily"; //Daily, Weekly, Monthly, Yearly
             const statistics = "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
-            const oneWeekAgo = (new Date(new Date().setDate(new Date().getDate() - 7))).toISOString().split('T')[0];
-            const outputData = processData.processData(data, oneWeekAgo, "Weekly", filter, statistics);
-
+            const outputData = processData.processData(data, "Weekly", filter, statistics);
+            
             console.log({
                 "name": "Data over last Week",
-                "data":outputData}
-                );
-
+                "data":outputData
+            });
+            
             res.json({
                 "name": "Data over last Week",
                 "data": outputData
