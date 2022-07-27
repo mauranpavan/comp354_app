@@ -70,7 +70,7 @@ function processData(data, range, filter, statistics){
                     tableRange = table.filter(function(element){
                         if(startDate <= element.date && element.date <= endDate){
                             return element;
-                        }
+                        };
 
                     });
                     break;
@@ -105,26 +105,94 @@ function processData(data, range, filter, statistics){
             });
             */
 
+            let statData;
+            
+
+            switch(statistics){
+
+                case "Total Distance":
+                    statData = tableRange.map(function(element){
+                    return {
+                        date: element.date,
+                        statistic: statistics,
+                        value: Number(element.distance),
+                        color: '#3498db'
+                    }
+                });
+                console.log("Total Distance Success");
+                break;
+
+            case "Total Calories Burnt":
+                statData = tableRange.map(function(element){
+                    return {
+                        date: element.date,
+                        statistic: statistics,
+                        value: Number(element.calories),
+                        color: '#3498db'
+                    }
+                });
+                console.log("Total Calories Burnt Success");
+                break;
+
+            case "Total Duration":
+                statData = tableRange.map(function(element){
+                    return {
+                        date: element.date,
+                        statistic: statistics,
+                        value: Number(element.duration),
+                        color: '#3498db'
+                    }
+                });
+            console.log("Total Duration Success");
+            break;
+
+            case "Top Speed":
+                statData = tableRange.map(function(element){
+                    return {
+                        date: element.date,
+                        statistic: statistics,
+                        value: Number(element.top_speed),
+                        color: '#3498db'
+                    }
+                });
+                console.log("Top Speed Success");
+                break;
+
+            case "Average Speed":
+                statData = tableRange.map(function(element){
+                    return {
+                        date: element.date,
+                        statistic: statistics,
+                        value: Number(element.avg_speed),
+                        color: '#3498db'
+                    }
+                });
+            console.log("Average Speed Success");
+            break;
+
+
+            };
+
             let filteredData;
 
             switch(filter){
 
                 case "Daily":
-                    filteredData = compressionFunction.getDailyData(tableRange, statistics);
+                    filteredData = compressionFunction.getDailyData(statData, statistics, range);
                     break;
 
                 case "Weekly":
-                    filteredData = compressionFunction.getWeeklyData(tableRange, statistics, range, filter);
+                    filteredData = compressionFunction.getWeeklyData(statData, statistics, range);
                     console.log("Weekly success");
                     break;
 
                 case "Monthly":
-                    filteredData = compressionFunction.getMonthlyData(tableRange, statistics, range, filter);
+                    filteredData = compressionFunction.getMonthlyData(statData, statistics, range);
                     console.log("Monthly success");
                     break;
 
                 case "Yearly":
-                    filteredData = compressionFunction.getYearlyData(tableRange, statistics, range, filter);
+                    filteredData = compressionFunction.getYearlyData(statData, statistics);
                     console.log("Yearly success");
                     break;
 
