@@ -16,7 +16,8 @@ export const FilterType = {
 export const RangeType = {
     Week: "Week",
     Month: "Month",
-    Year: "Year"
+    Year: "Year",
+    Ever: "All"
 }
 
 export const StatisticType = {

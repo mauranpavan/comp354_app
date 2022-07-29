@@ -1,6 +1,6 @@
 const compressionFunction = require("./charts.filtering.compression.js");
 
-function processData(data, range, filter, statistics) {
+function processData(data, range, filter, statistic) {
 
     const rows = (data.split('\n').slice(1)).map(function (element) {
 
@@ -18,16 +18,9 @@ function processData(data, range, filter, statistics) {
 
     switch (range) {
 
-        case "All time":
-            rangeFilteredData = rows;
-            break;
-
-        case "Year":
+        case "year":
             startDate = (new Date((new Date().getFullYear() - 1), new Date().getMonth(), new Date().getDate())).toISOString().split('T')[0];
             endDate = new Date().toISOString().split('T')[0];
-
-            console.log("Ystart Date", startDate);
-            console.log("YFinal Date", endDate);
 
             rangeFilteredData = rows.filter(function (element) {
                 if (startDate <= element.date && element.date <= endDate) {
@@ -37,11 +30,9 @@ function processData(data, range, filter, statistics) {
             });
             break;
 
-        case "Month":
+        case "month":
             startDate = new Date(new Date().getFullYear(), new Date().getMonth() - 1, new Date().getDate()).toISOString().split('T')[0];
             endDate = new Date().toISOString().split('T')[0];
-            console.log("MstartDate", startDate);
-            console.log("MendDate", endDate);
 
             rangeFilteredData = rows.filter(function (element) {
                 if (startDate <= element.date && element.date <= endDate) {
@@ -52,7 +43,7 @@ function processData(data, range, filter, statistics) {
 
             break;
 
-        case "Week":
+        case "week":
             startDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 7).toISOString().split('T')[0];
             endDate = new Date().toISOString().split('T')[0];
 
@@ -62,76 +53,65 @@ function processData(data, range, filter, statistics) {
                 }
 
             });
-            console.log("tableRange:", rangeFilteredData)
             break;
 
         default:
-            console.log("default")
+            rangeFilteredData = rows;
 
     };
 
     let statSpecificData;
 
-    switch (statistics) {
+    switch (statistic) {
 
-        case "Total Distance":
+        case "total distance":
             statSpecificData = rangeFilteredData.map(function (element) {
                 return {
                     date: element.date,
-                    statistic: statistics,
+                    statistic: statistic,
                     value: Number(element.distance),
-                    color: '#3498db'
                 }
             });
-            console.log("Total Distance Success");
             break;
 
-        case "Total Calories Burnt":
+        case "total calories burnt":
             statSpecificData = rangeFilteredData.map(function (element) {
                 return {
                     date: element.date,
-                    statistic: statistics,
+                    statistic: statistic,
                     value: Number(element.calories),
-                    color: '#3498db'
                 }
             });
-            console.log("Total Calories Burnt Success");
             break;
 
-        case "Total Duration":
+        case "total duration":
             statSpecificData = rangeFilteredData.map(function (element) {
                 return {
                     date: element.date,
-                    statistic: statistics,
+                    statistic: statistic,
                     value: Number(element.duration),
-                    color: '#3498db'
                 }
             });
-            console.log("Total Duration Success");
             break;
 
-        case "Top Speed":
+        case "top speed":
             statSpecificData = rangeFilteredData.map(function (element) {
                 return {
                     date: element.date,
-                    statistic: statistics,
+                    statistic: statistic,
                     value: Number(element.top_speed),
-                    color: '#3498db'
                 }
             });
-            console.log("Top Speed Success");
             break;
 
-        case "Average Speed":
+        case "average speed":
             statSpecificData = rangeFilteredData.map(function (element) {
                 return {
                     date: element.date,
-                    statistic: statistics,
+                    statistic: statistic,
                     value: Number(element.avg_speed),
-                    color: '#3498db'
                 }
             });
-            console.log("Average Speed Success");
             break;
     };
 
@@ -139,23 +119,20 @@ function processData(data, range, filter, statistics) {
 
     switch (filter) {
 
-        case "Daily":
-            filteredData = compressionFunction.getDailyData(statSpecificData, statistics, range);
+        case "daily":
+            filteredData = compressionFunction.getDailyData(statSpecificData, statistic, range);
             break;
 
-        case "Weekly":
-            filteredData = compressionFunction.getWeeklyData(statSpecificData, statistics, range);
-            console.log("Weekly success");
+        case "weekly":
+            filteredData = compressionFunction.getWeeklyData(statSpecificData, statistic, range);
             break;
 
-        case "Monthly":
-            filteredData = compressionFunction.getMonthlyData(statSpecificData, statistics, range);
-            console.log("Monthly success");
+        case "monthly":
+            filteredData = compressionFunction.getMonthlyData(statSpecificData, statistic, range);
             break;
 
-        case "Yearly":
-            filteredData = compressionFunction.getYearlyData(statSpecificData, statistics);
-            console.log("Yearly success");
+        case "yearly":
+            filteredData = compressionFunction.getYearlyData(statSpecificData, statistic);
             break;
 
     };

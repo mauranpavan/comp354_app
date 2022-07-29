@@ -1,3 +1,7 @@
+const generateRandomColor = () => {
+    return `#${(Math.random() * 0xfffff * 1000000).toString(16).slice(0, 6)}`;
+};
+
 function getDailyData(statData, statistics) {
     let dailyUniqueData = {};
     let outputData = [];
@@ -27,7 +31,7 @@ function getDailyData(statData, statistics) {
         outputData.push({
             name: key,
             y: +value.toFixed(2),
-            color: '#3498db'
+            color: generateRandomColor()
         });
 
     }
@@ -48,11 +52,8 @@ function getWeeklyData(statData, statistics) {
         day = new Date(statData[i]['date']).getDay();
         beg = new Date(statData[i]['date']).getDate() - day;
         end = beg + 6;
-        weekTest = new Date(new Date(statData[i]['date']).getFullYear(),
-            new Date(statData[i]['date']).getMonth(),
-            beg).toISOString().split('T')[0] + " to " + new Date(new Date(statData[i]['date']).getFullYear(),
-                new Date(statData[i]['date']).getMonth(),
-                end).toISOString().split('T')[0];
+        weekTest = new Date(new Date(statData[i]['date']).getFullYear(), new Date(statData[i]['date']).getMonth(), beg).toISOString().split('T')[0]
+            + " to " + new Date(new Date(statData[i]['date']).getFullYear(), new Date(statData[i]['date']).getMonth(), end).toISOString().split('T')[0];
         if (weekTest in transformData) {
             transformData[weekTest] += statData[i]['value'];
             numEl[i] += 1;
@@ -64,8 +65,6 @@ function getWeeklyData(statData, statistics) {
         };
     };
 
-
-
     for (let i = 0; i < Object.keys(transformData).length; i++) {
         const key = Object.keys(transformData)[i];
         var value = transformData[key];
@@ -75,23 +74,13 @@ function getWeeklyData(statData, statistics) {
         };
 
         outputData.push({
-            week: key,
-            statistics: statistics,
-            Total: value.toFixed(2),
-            color: '#3498db'
+            name: key,
+            y: +value.toFixed(2),
+            color: generateRandomColor()
         });
 
     };
 
-    /*
-        console.log("statData:", statData);
-        console.log("Wday:", day);
-        console.log("Wcurrday:", new Date(statData[0]['date']));
-        console.log("Wbeg:", beg);
-        console.log("Wend:", end);
-        console.log("weekTest:", weekTest);
-        console.log("Wdate:", statData[0]['date']);
-    */
     return outputData;
 };
 
@@ -131,10 +120,9 @@ function getMonthlyData(statData, statistics) {
         };
 
         outputData.push({
-            month: key,
-            statistics: statistics,
-            Total: value.toFixed(2),
-            color: '#3498db'
+            name: key,
+            y: +value.toFixed(2),
+            color: generateRandomColor()
         });
 
     };
@@ -171,10 +159,9 @@ function getYearlyData(statData, statistics) {
         };
 
         outputData.push({
-            year: key,
-            statistics: statistics,
-            Total: value.toFixed(2),
-            color: '#3498db'
+            name: key,
+            y: +value.toFixed(2),
+            color: generateRandomColor()
         });
 
     };
