@@ -26,20 +26,19 @@ function processData(data, range, filter, statistics){
             switch(range){
 
                 case "All time":
-                    startDate = (new Date("2000-01-01")).toISOString().split('T')[0];
-                    endDate = (new Date()).toISOString().split('T')[0];
-
                     tableRange = table.filter(function(element){
-                        if(startDate <= element.date && element.date <= endDate){
                             return element;
-                        }
-
                     });
+
+                    //console.log("tableRange", tableRange)
                     break;
 
-                case "Yearly":
-                    startDate = new Date(new Date(new Date((new Date().setFullYear(new Date().getFullYear() - 1))).setMonth(0)).setDate(1)).toISOString().split('T')[0];
-                    endDate = new Date(new Date(new Date((new Date().setFullYear(new Date().getFullYear() - 1))).setMonth(11)).setDate(31)).toISOString().split('T')[0];
+                case "Year":
+                    //startDate = new Date(new Date(new Date((new Date().setFullYear(new Date().getFullYear() - 1))).setMonth(0)).setDate(1)).toISOString().split('T')[0];
+                    //endDate = new Date(new Date(new Date((new Date().setFullYear(new Date().getFullYear() - 1))).setMonth(11)).setDate(31)).toISOString().split('T')[0];
+
+                    startDate = (new Date((new Date().getFullYear()-1), 0, 1)).toISOString().split('T')[0];
+                    endDate = (new Date((new Date().getFullYear()-1), 11, 31)).toISOString().split('T')[0];
 
                     console.log("Ystart Date", startDate);
                     console.log("YFinal Date", endDate);
@@ -52,18 +51,9 @@ function processData(data, range, filter, statistics){
                     });
                     break;
 
-                case "Monthly":
-                    startDate = (new Date(new Date(new Date().setDate(1)).setMonth(new Date().getMonth() - 1))).toISOString().split('T')[0];
-                    
-                    if((new Date().getFullYear() % 4) == 0){
-                        monthDur = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-                    }
-                    else{
-                        monthDur = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-                    };
-                    let lastDay = monthDur[new Date().getMonth()-1];
-
-                    endDate = (new Date(new Date(new Date().setDate(lastDay)).setMonth(new Date().getMonth() - 1))).toISOString().split('T')[0];
+                case "Month":
+                    startDate = new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1).toISOString().split('T')[0];
+                    endDate = new Date(new Date().getFullYear(), new Date().getMonth(), 0).toISOString().split('T')[0];
                     console.log("MstartDate", startDate);
                     console.log("MendDate", endDate);
 
@@ -73,16 +63,12 @@ function processData(data, range, filter, statistics){
                         };
 
                     });
+
                     break;
 
-                case "Weekly":
-                    let day = new Date().getDay();
-                    let diff = 7 + day;
-                    let beg = new Date().getDate() - diff;
-                    let end = new Date().getDate() - day - 1;
-
-                    startDate = (new Date(new Date().setDate(beg))).toISOString().split('T')[0];
-                    endDate = (new Date(new Date().setDate(end))).toISOString().split('T')[0];
+                case "Week":
+                    startDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 7).toISOString().split('T')[0];
+                    endDate = new Date().toISOString().split('T')[0];
                     console.log("WstartDate", startDate);
                     console.log("WendDate", endDate);
 
@@ -92,22 +78,16 @@ function processData(data, range, filter, statistics){
                         }
 
                     });
+                    console.log("tableRange:", tableRange)
                     break;
 
                 default:
                     console.log("default")
 
             };
-            /*
-            var sum = 0;
-            tableRange.map(element => {
-                sum += Number(element.distance);
-            });
-            */
 
             let statData;
             
-
             switch(statistics){
 
                 case "Total Distance":
@@ -172,7 +152,9 @@ function processData(data, range, filter, statistics){
 
 
             };
-
+            //console.log("statData", statData);
+            
+            
             let filteredData;
 
             switch(filter){

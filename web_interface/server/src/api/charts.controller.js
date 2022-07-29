@@ -48,7 +48,7 @@ router.route("/year")
 
             const filter = "Daily"; //Daily, Weekly, Monthly, Yearly
             const statistics = "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
-            const outputData = processData.processData(data, "Yearly", filter, statistics);
+            const outputData = processData.processData(data, "Year", filter, statistics);
             
             console.log({
                 "name": "Data over Last Year",
@@ -72,9 +72,9 @@ router.route("/month")
                 return;
             }
 
-            const filter = "Daily"; //Daily, Weekly, Monthly, Yearly
+            const filter = "Daily"; //Daily, Weekly, Monthly, Year
             const statistics = "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
-            const outputData = processData.processData(data, "Monthly", filter, statistics);
+            const outputData = processData.processData(data, "Month", filter, statistics);
             
             console.log({
                 "name": "Data over Last Month",
@@ -98,9 +98,9 @@ router.route("/week")
                 return;
             }
 
-            const filter = "Daily"; //Daily, Weekly, Monthly, Yearly
+            const filter = "Daily"; //Daily, Weekly, Monthly, Year
             const statistics = "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
-            const outputData = processData.processData(data, "Weekly", filter, statistics);
+            const outputData = processData.processData(data, "Week", filter, statistics);
             
             console.log({
                 "name": "Data over last Week",
