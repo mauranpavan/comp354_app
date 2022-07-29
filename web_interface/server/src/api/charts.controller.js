@@ -15,37 +15,18 @@ router.route("/")
                 return;
             }
 
-            const allTime = (new Date("2000-01-01")).toISOString().split('T')[0];
-            const outputData = processData.processData(data, allTime, "All time");
+            const filter = "Daily"; //Daily, Weekly, Monthly, Yearly
+            const statistics = "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
+            const outputData = processData.processData(data, "All time", filter, statistics);
 
-            // TODO - Insert the correct data points from the parsed file FOR DEFAULT PARAMS (daily filter, total distance only) 
+            console.log({
+                "name": "All Time Data",
+                "data": outputData
+            });
 
-            // Currently, this works for categorical data.. so the format below would not work for continous data like line plot.
-            // Either way, all of our stats are categorical, unless we decide to plot one stat against another like distance vs average speed.
             res.json({
                 "name": "All Time Data",
-                "data": [
-                    {
-                        name: 'Argon', // would become a day of the week
-                        y: 0.9,
-                        color: '#3498db'
-                    },
-                    {
-                        name: 'Nitrogen',
-                        y: 78.1,
-                        color: '#9b59b6'
-                    },
-                    {
-                        name: 'Oxygen',
-                        y: 20.9,
-                        color: '#2ecc71'
-                    },
-                    {
-                        name: 'Trace Gases',
-                        y: 0.1,
-                        color: '#f1c40f'
-                    }
-                ]
+                "data": outputData
             })
 
         });
@@ -60,33 +41,18 @@ router.route("/year")
                 return;
             }
 
-            const oneYearAgo = (new Date(new Date().setFullYear(new Date().getFullYear() - 1))).toISOString().split('T')[0];
-            const outputData = processData.processData(data, oneYearAgo, "Yearly");
+            const filter = "Daily"; //Daily, Weekly, Monthly, Yearly
+            const statistics = "Average Speed"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
+            const outputData = processData.processData(data, "Year", filter, statistics);
+
+            console.log({
+                "name": "Data over Last Year",
+                "data": outputData
+            });
 
             res.json({
                 "name": "Data over Last Year",
-                "data": [
-                    {
-                        name: 'Argon',
-                        y: 0.9,
-                        color: '#3498db'
-                    },
-                    {
-                        name: 'Nitrogen',
-                        y: 78.1,
-                        color: '#9b59b6'
-                    },
-                    {
-                        name: 'Oxygen',
-                        y: 20.9,
-                        color: '#2ecc71'
-                    },
-                    {
-                        name: 'Trace Gases',
-                        y: 0.1,
-                        color: '#f1c40f'
-                    }
-                ]
+                "data": outputData
             })
 
         });
@@ -101,33 +67,18 @@ router.route("/month")
                 return;
             }
 
-            const oneMonthAgo = (new Date(new Date().setMonth(new Date().getMonth() - 1))).toISOString().split('T')[0];
-            const outputData = processData.processData(data, oneMonthAgo, "Monthly");
+            const filter = "Daily"; //Daily, Weekly, Monthly, Year
+            const statistics = "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
+            const outputData = processData.processData(data, "Month", filter, statistics);
+
+            console.log({
+                "name": "Data over Last Month",
+                "data": outputData
+            });
 
             res.json({
                 "name": "Data over Last Month",
-                "data": [
-                    {
-                        name: 'Argon',
-                        y: 0.9,
-                        color: '#3498db'
-                    },
-                    {
-                        name: 'Nitrogen',
-                        y: 78.1,
-                        color: '#9b59b6'
-                    },
-                    {
-                        name: 'Oxygen',
-                        y: 20.9,
-                        color: '#2ecc71'
-                    },
-                    {
-                        name: 'Trace Gases',
-                        y: 0.1,
-                        color: '#f1c40f'
-                    }
-                ]
+                "data": outputData
             })
 
         });
@@ -142,33 +93,18 @@ router.route("/week")
                 return;
             }
 
-            const oneWeekAgo = (new Date(new Date().setDate(new Date().getDate() - 7))).toISOString().split('T')[0];
-            const outputData = processData.processData(data, oneWeekAgo, "Weekly");
+            const filter = "Daily"; //Daily, Weekly, Monthly, Year
+            const statistics = "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
+            const outputData = processData.processData(data, "Week", filter, statistics);
+
+            console.log({
+                "name": "Data over last Week",
+                "data": outputData
+            });
 
             res.json({
                 "name": "Data over last Week",
-                "data": [
-                    {
-                        name: 'Argon',
-                        y: 0.9,
-                        color: '#3498db'
-                    },
-                    {
-                        name: 'Nitrogen',
-                        y: 78.1,
-                        color: '#9b59b6'
-                    },
-                    {
-                        name: 'Oxygen',
-                        y: 20.9,
-                        color: '#2ecc71'
-                    },
-                    {
-                        name: 'Trace Gases',
-                        y: 0.1,
-                        color: '#f1c40f'
-                    }
-                ]
+                "data": outputData
             })
 
         });

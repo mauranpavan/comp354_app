@@ -1,107 +1,166 @@
+const compressionFunction = require("./charts.filtering.compression.js");
 
-function processData(data, startDate, period){
+function processData(data, range, filter, statistics) {
 
-	    const calories = [];
-            const distance = [];
-            const duration = [];
-            const topSpeed = [];
-            const avgSpeed = [];
+    const rows = (data.split('\n').slice(1)).map(function (element) {
 
-            const table = data.split('\n').slice(1);
+        return {
+            id: element.split(',')[[0][0]], date: element.split(',')[[1][0]],
+            calories: element.split(',')[[2][0]], distance: element.split(',')[[3][0]],
+            duration: element.split(',')[[4][0]], top_speed: element.split(',')[[5][0]],
+            avg_speed: (element.split(',')[[6][0]]).replace('\r', '')
+        };
+    });
 
-            table.forEach(row => {
-                const columns = row.split(',');
-                const now = (new Date()).toISOString().split('T')[0];
-                
-            
-                if(startDate <= columns[1] && columns[1] <= now){
+    let startDate;
+    let endDate;
+    let rangeFilteredData;
 
-                    const Calories = columns[2];
-                    const Distance = columns[3];
-                    const Duration = columns[4];
-                    const TopSpeed = columns[5];
-                    const AvgSpeed = columns[6];
+    switch (range) {
 
-                    calories.push(Calories);
-                    distance.push(Distance);
-                    duration.push(Duration);
-                    topSpeed.push(TopSpeed);
-                    avgSpeed.push(AvgSpeed);
-                    
+        case "All time":
+            rangeFilteredData = rows;
+            break;
 
-            }
-            
-            })
-            
+        case "Year":
+            startDate = (new Date((new Date().getFullYear() - 1), new Date().getMonth(), new Date().getDate())).toISOString().split('T')[0];
+            endDate = new Date().toISOString().split('T')[0];
 
-            const caloriesNum = calories.map(str => {
-                return Number(str);
+            console.log("Ystart Date", startDate);
+            console.log("YFinal Date", endDate);
+
+            rangeFilteredData = rows.filter(function (element) {
+                if (startDate <= element.date && element.date <= endDate) {
+                    return element;
+                }
+
+            });
+            break;
+
+        case "Month":
+            startDate = new Date(new Date().getFullYear(), new Date().getMonth() - 1, new Date().getDate()).toISOString().split('T')[0];
+            endDate = new Date().toISOString().split('T')[0];
+            console.log("MstartDate", startDate);
+            console.log("MendDate", endDate);
+
+            rangeFilteredData = rows.filter(function (element) {
+                if (startDate <= element.date && element.date <= endDate) {
+                    return element;
+                };
+
             });
 
-            const distanceNum = distance.map(str => {
-                return Number(str);
+            break;
+
+        case "Week":
+            startDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 7).toISOString().split('T')[0];
+            endDate = new Date().toISOString().split('T')[0];
+
+            rangeFilteredData = rows.filter(function (element) {
+                if (startDate <= element.date && element.date <= endDate) {
+                    return element;
+                }
+
             });
+            console.log("tableRange:", rangeFilteredData)
+            break;
 
-            const durationNum = duration.map(str => {
-                return Number(str);
+        default:
+            console.log("default")
+
+    };
+
+    let statSpecificData;
+
+    switch (statistics) {
+
+        case "Total Distance":
+            statSpecificData = rangeFilteredData.map(function (element) {
+                return {
+                    date: element.date,
+                    statistic: statistics,
+                    value: Number(element.distance),
+                    color: '#3498db'
+                }
             });
+            console.log("Total Distance Success");
+            break;
 
-            const topSpeedNum = topSpeed.map(str => {
-                return Number(str);
+        case "Total Calories Burnt":
+            statSpecificData = rangeFilteredData.map(function (element) {
+                return {
+                    date: element.date,
+                    statistic: statistics,
+                    value: Number(element.calories),
+                    color: '#3498db'
+                }
             });
+            console.log("Total Calories Burnt Success");
+            break;
 
-            const avgSpeedNum = avgSpeed.map(str => {
-                return Number(str);
+        case "Total Duration":
+            statSpecificData = rangeFilteredData.map(function (element) {
+                return {
+                    date: element.date,
+                    statistic: statistics,
+                    value: Number(element.duration),
+                    color: '#3498db'
+                }
             });
+            console.log("Total Duration Success");
+            break;
 
-            let calSum = 0;
+        case "Top Speed":
+            statSpecificData = rangeFilteredData.map(function (element) {
+                return {
+                    date: element.date,
+                    statistic: statistics,
+                    value: Number(element.top_speed),
+                    color: '#3498db'
+                }
+            });
+            console.log("Top Speed Success");
+            break;
 
-            for (let i = 0; i < caloriesNum.length; i += 1) {
-                calSum += caloriesNum[i];
-            }
-            
-            let distanceSum = 0;
+        case "Average Speed":
+            statSpecificData = rangeFilteredData.map(function (element) {
+                return {
+                    date: element.date,
+                    statistic: statistics,
+                    value: Number(element.avg_speed),
+                    color: '#3498db'
+                }
+            });
+            console.log("Average Speed Success");
+            break;
+    };
 
-            for (let i = 0; i < distanceNum.length; i += 1) {
-                distanceSum += distanceNum[i];
-            }
+    let filteredData;
 
-            let durationSum = 0;
+    switch (filter) {
 
-            for (let i = 0; i < durationNum.length; i += 1) {
-                durationSum += durationNum[i];
-            }
+        case "Daily":
+            filteredData = compressionFunction.getDailyData(statSpecificData, statistics, range);
+            break;
 
-            let topSpeedSum = 0;
+        case "Weekly":
+            filteredData = compressionFunction.getWeeklyData(statSpecificData, statistics, range);
+            console.log("Weekly success");
+            break;
 
-            for (let i = 0; i < topSpeedNum.length; i += 1) {
-                topSpeedSum += topSpeedNum[i];
-            }
+        case "Monthly":
+            filteredData = compressionFunction.getMonthlyData(statSpecificData, statistics, range);
+            console.log("Monthly success");
+            break;
 
-            var topSpeedAvg = topSpeedSum / topSpeedNum.length;
-            
-            let avgSpeedSum = 0;
+        case "Yearly":
+            filteredData = compressionFunction.getYearlyData(statSpecificData, statistics);
+            console.log("Yearly success");
+            break;
 
-            for (let i = 0; i < avgSpeedNum.length; i += 1) {
-                avgSpeedSum += avgSpeedNum[i];
-            }
-            
-            var avgSpeedAvg = avgSpeedSum / avgSpeedNum.length;
+    };
 
-            const outputData = [
-
-                [`${ period } calories: `, calSum],
-                [` ${ period } distance: `, distanceSum],
-                [` ${ period } duration: `, durationSum.toFixed(2)],
-                [` ${ period } top speed average: `, topSpeedAvg.toFixed(2)],
-                [` ${ period } average speed average: `, avgSpeedAvg.toFixed(2)]
-
-            ];
-
-            return outputData;
-
-
-
+    return filteredData;
 };
 
 module.exports = { processData };
