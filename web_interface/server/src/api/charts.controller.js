@@ -15,20 +15,15 @@ router.route("/")
                 return;
             }
 
-            const filter = "Weekly"; //Daily, Weekly, Monthly, Yearly
+            const filter = "Daily"; //Daily, Weekly, Monthly, Yearly
             const statistics = "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
             const outputData = processData.processData(data, "All time", filter, statistics);
 
-            // TODO - Insert the correct data points from the parsed file FOR DEFAULT PARAMS (daily filter, total distance only) 
-
-            // Currently, this works for categorical data.. so the format below would not work for continous data like line plot.
-            // Either way, all of our stats are categorical, unless we decide to plot one stat against another like distance vs average speed.
-            
             console.log({
                 "name": "All Time Data",
                 "data": outputData
             });
-            
+
             res.json({
                 "name": "All Time Data",
                 "data": outputData
@@ -46,15 +41,15 @@ router.route("/year")
                 return;
             }
 
-            const filter = "Weekly"; //Daily, Weekly, Monthly, Yearly
-            const statistics = "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
+            const filter = "Daily"; //Daily, Weekly, Monthly, Yearly
+            const statistics = "Average Speed"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
             const outputData = processData.processData(data, "Year", filter, statistics);
-            
+
             console.log({
                 "name": "Data over Last Year",
                 "data": outputData
             });
-            
+
             res.json({
                 "name": "Data over Last Year",
                 "data": outputData
@@ -72,15 +67,15 @@ router.route("/month")
                 return;
             }
 
-            const filter = "Weekly"; //Daily, Weekly, Monthly, Year
+            const filter = "Daily"; //Daily, Weekly, Monthly, Year
             const statistics = "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
             const outputData = processData.processData(data, "Month", filter, statistics);
-            
+
             console.log({
                 "name": "Data over Last Month",
                 "data": outputData
             });
-            
+
             res.json({
                 "name": "Data over Last Month",
                 "data": outputData
@@ -101,12 +96,12 @@ router.route("/week")
             const filter = "Daily"; //Daily, Weekly, Monthly, Year
             const statistics = "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
             const outputData = processData.processData(data, "Week", filter, statistics);
-            
+
             console.log({
                 "name": "Data over last Week",
-                "data":outputData
+                "data": outputData
             });
-            
+
             res.json({
                 "name": "Data over last Week",
                 "data": outputData
