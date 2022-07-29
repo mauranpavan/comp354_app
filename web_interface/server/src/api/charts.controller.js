@@ -21,7 +21,7 @@ router.route("/:range/:filter/:stat")
 
 
             res.json({
-                "name": `${filter} ${stat} Data for ${range} Range`,
+                "name": `${stat}`,
                 "data": outputData
             })
         });
