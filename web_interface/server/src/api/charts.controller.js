@@ -15,7 +15,7 @@ router.route("/")
                 return;
             }
 
-            const filter = "Daily"; //Daily, Weekly, Monthly, Yearly
+            const filter = "Weekly"; //Daily, Weekly, Monthly, Yearly
             const statistics = "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
             const outputData = processData.processData(data, "All time", filter, statistics);
 
@@ -46,7 +46,7 @@ router.route("/year")
                 return;
             }
 
-            const filter = "Daily"; //Daily, Weekly, Monthly, Yearly
+            const filter = "Weekly"; //Daily, Weekly, Monthly, Yearly
             const statistics = "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
             const outputData = processData.processData(data, "Year", filter, statistics);
             
@@ -72,7 +72,7 @@ router.route("/month")
                 return;
             }
 
-            const filter = "Daily"; //Daily, Weekly, Monthly, Year
+            const filter = "Weekly"; //Daily, Weekly, Monthly, Year
             const statistics = "Total Distance"; //Total Distance, Total Calories Burnt, Total Duration, Top Speed, Average Speed
             const outputData = processData.processData(data, "Month", filter, statistics);
             
