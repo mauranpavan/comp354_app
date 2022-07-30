@@ -7,8 +7,8 @@ function processData(data, range, filter, statistic) {
         return {
             id: element.split(',')[[0][0]], date: element.split(',')[[1][0]],
             calories: element.split(',')[[2][0]], distance: element.split(',')[[3][0]],
-            duration: element.split(',')[[4][0]], top_speed: element.split(',')[[5][0]],
-            avg_speed: (element.split(',')[[6][0]]).replace('\r', '')
+            duration: element.split(',')[[4][0]], elevation_gain: element.split(',')[[5][0]],
+            top_speed: element.split(',')[[6][0]], avg_speed: (element.split(',')[[7][0]]).replace('\r', '')
         };
     });
 
@@ -110,6 +110,16 @@ function processData(data, range, filter, statistic) {
                     date: element.date,
                     statistic: statistic,
                     value: Number(element.avg_speed),
+                }
+            });
+            break;
+
+        case "total elevation gain":
+            statSpecificData = rangeFilteredData.map(function (element) {
+                return {
+                    date: element.date,
+                    statistic: statistic,
+                    value: Number(element.elevation_gain),
                 }
             });
             break;
