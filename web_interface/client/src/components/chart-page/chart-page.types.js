@@ -25,5 +25,6 @@ export const StatisticType = {
     Calories: "Total Calories Burnt",
     Duration: "Total Duration",
     Elevation: "Total Elevation Gain",
-    Speed: "Average Speed"
+    Speed: "Average Speed",
+    TopSpeed: "Top Speed"
 }

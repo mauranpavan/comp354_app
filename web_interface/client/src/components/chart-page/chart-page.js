@@ -17,7 +17,7 @@ export const Charts = () => {
             </nav>
             <div className="charts-header">
                 <h1>Your Data Visualized</h1>
-                <p className="description">Here, you can see your data visualized.</p>
+                <p className="description">Here, you can see your data visualized in different chart types. The data can be organized with three different parameters: filter, statistic, and range.</p>
             </div>
             <div className="charts-body">
                 <div className="parameters">
@@ -50,6 +50,7 @@ export const Charts = () => {
                             <option value={StatisticType.Duration}>{StatisticType.Duration}</option>
                             <option value={StatisticType.Elevation}>{StatisticType.Elevation}</option>
                             <option value={StatisticType.Speed}>{StatisticType.Speed}</option>
+                            <option value={StatisticType.TopSpeed}>{StatisticType.TopSpeed}</option>
                         </select>
                     </div>
                 </div>
@@ -62,13 +63,7 @@ export const Charts = () => {
                         <option value={ChartType.Box}>Box</option>
                         <option value={ChartType.Line}>Line</option>
                     </select>
-                    <h4>Aggregated Stats</h4>
-                    <p className="description">
-                        For the first iteration, we are aggregating the data for all statistics for demonstration purposes. In the second iteration, we will not aggregate, but rather
-                        return the data points and graph appropriately for the chosen statistic, filter, and range. Range can be tested currently.
-                    </p>
                     {(chartData && chartType === ChartType.Pie) && <PieChart title={getChartTitle(chartType, filter, statistic)} seriesData={chartData} />}
-                    {/* There would be 3 more lines for the other chart types. */}
                 </div>
             </div>
 
