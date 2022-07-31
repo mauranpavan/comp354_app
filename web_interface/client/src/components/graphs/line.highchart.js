@@ -20,11 +20,11 @@ export const LineChart = (props) => {
                     fontWeight: '500'
                 }
             },
+            xAxis: {
+                type: 'category'
+            },
             plotOptions: {
                 line: {
-                    dataLabels: {
-                        format: '{point.name}: {point.percentage:.1f} %'
-                    },
                     color: '#030303'
                 }
             },
