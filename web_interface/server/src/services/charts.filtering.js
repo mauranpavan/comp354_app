@@ -12,6 +12,8 @@ function processData(data, range, filter, statistic) {
         };
     });
 
+    const sortedRows = rows.sort((a, b) => new Date(a.date) - new Date(b.date));
+
     let startDate;
     let endDate;
     let rangeFilteredData;
@@ -22,7 +24,7 @@ function processData(data, range, filter, statistic) {
             startDate = (new Date((new Date().getFullYear() - 1), new Date().getMonth(), new Date().getDate())).toISOString().split('T')[0];
             endDate = new Date().toISOString().split('T')[0];
 
-            rangeFilteredData = rows.filter(function (element) {
+            rangeFilteredData = sortedRows.filter(function (element) {
                 if (startDate <= element.date && element.date <= endDate) {
                     return element;
                 }
@@ -34,7 +36,7 @@ function processData(data, range, filter, statistic) {
             startDate = new Date(new Date().getFullYear(), new Date().getMonth() - 1, new Date().getDate()).toISOString().split('T')[0];
             endDate = new Date().toISOString().split('T')[0];
 
-            rangeFilteredData = rows.filter(function (element) {
+            rangeFilteredData = sortedRows.filter(function (element) {
                 if (startDate <= element.date && element.date <= endDate) {
                     return element;
                 };
@@ -47,7 +49,7 @@ function processData(data, range, filter, statistic) {
             startDate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - 7).toISOString().split('T')[0];
             endDate = new Date().toISOString().split('T')[0];
 
-            rangeFilteredData = rows.filter(function (element) {
+            rangeFilteredData = sortedRows.filter(function (element) {
                 if (startDate <= element.date && element.date <= endDate) {
                     return element;
                 }
@@ -56,7 +58,7 @@ function processData(data, range, filter, statistic) {
             break;
 
         default:
-            rangeFilteredData = rows;
+            rangeFilteredData = sortedRows;
 
     };
 
