@@ -7,6 +7,7 @@ import './chart-page.css';
 import { PieChart } from '../graphs/pie.highchart';
 import { LineChart } from '../graphs/line.highchart';
 import { CylinderChart } from '../graphs/cylinder.highchart';
+import { BarChart } from '../graphs/bar.highchart';
 
 
 export const Charts = () => {
@@ -64,11 +65,12 @@ export const Charts = () => {
                         <option value={ChartType.Bar}>Bar</option>
                         <option value={ChartType.Pie}>Pie</option>
                         <option value={ChartType.Line}>Line</option>
-                        <option value={ChartType.Cylinder}>Cylinder</option>
+                        <option value={ChartType.Cylinder}>3D Cylinder</option>
                     </select>
-                    {(chartData && chartType === ChartType.Cylinder) && <CylinderChart title={getChartTitle(chartType, filter, statistic)} seriesData={chartData} />}
+                    {(chartData && chartType === ChartType.Bar) && <BarChart title={getChartTitle(chartType, filter, statistic)} seriesData={chartData} yAxis={statistic} />}
                     {(chartData && chartType === ChartType.Pie) && <PieChart title={getChartTitle(chartType, filter, statistic)} seriesData={chartData} />}
                     {(chartData && chartType === ChartType.Line) && <LineChart title={getChartTitle(chartType, filter, statistic)} seriesData={chartData} />}
+                    {(chartData && chartType === ChartType.Cylinder) && <CylinderChart title={getChartTitle(chartType, filter, statistic)} seriesData={chartData} />}
                 </div>
             </div>
 
