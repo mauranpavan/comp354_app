@@ -19,19 +19,23 @@ export const PackedBubble = (props) => {
                 floating: true,
                 text: title,
                 style: {
-                fontSize: '20px'
+                    fontSize: '20px'
                 }
+            },
+            tooltip: {
+                useHTML: true,
+                pointFormat: '<b>{point.name}:</b> {point.y}</sub>'
             },
             plotOptions: {
                 packedbubble: {
                     dataLabels: {
-                        format: '{point.name}: {point.percentage:.1f} %'
+                        enabled: true,
+                        format: '{point.name}',
                     },
-                }
+                    minSize: 35
+                },
             },
-            series: [{
-                data: [1, 2, 3]
-            }]
+            series: [seriesData]
         });
     }, [seriesData, title]);
 

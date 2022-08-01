@@ -67,7 +67,7 @@ export const Charts = () => {
                         <option value={ChartType.Pie}>Pie</option>
                         <option value={ChartType.Line}>Line</option>
                         <option value={ChartType.Cylinder}>3D Cylinder</option>
-                        <option value={ChartType.PackedBubble}>PackedBubble</option>
+                        <option value={ChartType.PackedBubble}>Packed Bubbles</option>
                     </select>
                     {(chartData && chartType === ChartType.Bar) && <BarChart title={getChartTitle(chartType, filter, statistic)} seriesData={chartData} yAxis={statistic} />}
                     {(chartData && chartType === ChartType.Pie) && <PieChart title={getChartTitle(chartType, filter, statistic)} seriesData={chartData} />}
