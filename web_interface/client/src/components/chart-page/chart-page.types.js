@@ -3,7 +3,8 @@ export const ChartType = {
     Bar: "Bar",
     Pie: "Pie",
     Line: "Line",
-    Cylinder: "Cylinder"
+    Cylinder: "Cylinder",
+    PackedBubble: "Packed Bubble"
 }
 
 export const FilterType = {

@@ -10,6 +10,7 @@ import { CylinderChart } from '../graphs/cylinder.highchart';
 import { BarChart } from '../graphs/bar.highchart';
 
 
+import { PackedBubble } from '../graphs/packedbubble.highchart';
 export const Charts = () => {
 
     const { chartData, filter, range, statistic, chartType, onDateRangeSelected, onFilterTypeSelected, onStatisticeSelected, onChartTypeSelected } = useCharts();
@@ -66,11 +67,13 @@ export const Charts = () => {
                         <option value={ChartType.Pie}>Pie</option>
                         <option value={ChartType.Line}>Line</option>
                         <option value={ChartType.Cylinder}>3D Cylinder</option>
+                        <option value={ChartType.PackedBubble}>Packed Bubbles</option>
                     </select>
                     {(chartData && chartType === ChartType.Bar) && <BarChart title={getChartTitle(chartType, filter, statistic)} seriesData={chartData} yAxis={statistic} />}
                     {(chartData && chartType === ChartType.Pie) && <PieChart title={getChartTitle(chartType, filter, statistic)} seriesData={chartData} />}
                     {(chartData && chartType === ChartType.Line) && <LineChart title={getChartTitle(chartType, filter, statistic)} seriesData={chartData} />}
                     {(chartData && chartType === ChartType.Cylinder) && <CylinderChart title={getChartTitle(chartType, filter, statistic)} seriesData={chartData} />}
+                    {(chartData && chartType === ChartType.PackedBubble) && <PackedBubble title={getChartTitle(chartType, filter, statistic)} seriesData={chartData} />}
                 </div>
             </div>
 
