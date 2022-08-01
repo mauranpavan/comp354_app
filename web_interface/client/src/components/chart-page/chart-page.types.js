@@ -4,7 +4,7 @@ export const ChartType = {
     Pie: "Pie",
     Line: "Line",
     Cylinder: "Cylinder",
-    PackedBubble: "PackedBubble"
+    PackedBubble: "Packed Bubble"
 }
 
 export const FilterType = {

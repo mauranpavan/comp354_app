@@ -77,6 +77,7 @@ function getWeeklyData(statData, statistics) {
         outputData.push({
             name: key,
             y: +value.toFixed(2),
+            value: +value.toFixed(2),
             color: generateRandomColor()
         });
 
@@ -123,6 +124,7 @@ function getMonthlyData(statData, statistics) {
         outputData.push({
             name: key,
             y: +value.toFixed(2),
+            value: +value.toFixed(2),
             color: generateRandomColor()
         });
 
@@ -162,6 +164,7 @@ function getYearlyData(statData, statistics) {
         outputData.push({
             name: key,
             y: +value.toFixed(2),
+            value: +value.toFixed(2),
             color: generateRandomColor()
         });
 
