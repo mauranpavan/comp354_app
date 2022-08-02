@@ -9,14 +9,17 @@
 
 const fs = require('fs');
 const { parse } = require("csv-parse");
-
+const path = require('path');
 //dayjs module
 const dayjs = require('dayjs');
 var isoWeek = require('dayjs/plugin/isoWeek'); //ISO
 dayjs.extend(isoWeek);
+// const inputFilePath = '../../../data/daily-occurence-statistics.csv'
+// const outputFilePath = '../../../data/weekly-occurence-statistics.csv'
 
-const inputFilePath = '../../../data/daily-occurence-statistics.csv'
-const outputFilePath = '../../../data/weekly-occurence-statistics.csv'
+const inputFilePath = 'C:/Users/mauran/Documents/COMP354_app/web_interface/data/daily-occurence-statistics.csv';
+const outputFilePath = 'C:/Users/mauran/Documents/COMP354_app/web_interface/data/weekly-occurence-statistics.csv';
+
 var outputContent = 'Sample Content';
 const dailyOSArr = [];  //dailyOccurenceStatistics array to group days of a week
 const weeklyWSArr = [];  //weekly WorkoutSummary(WS) array

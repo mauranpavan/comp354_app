@@ -7,8 +7,11 @@ const dayjs = require('dayjs');
 var isoWeek = require('dayjs/plugin/isoWeek'); //ISO
 dayjs.extend(isoWeek);
 
-const inputFilePath = '../../../data/monthly-occurence-statistics.csv'
-const outputFilePath = '../../../data/yearly-occurence-statistics.csv'
+// const inputFilePath = '../../../data/monthly-occurence-statistics.csv'
+// const outputFilePath = '../../../data/yearly-occurence-statistics.csv'
+
+const inputFilePath = 'C:/Users/mauran/Documents/COMP354_app/web_interface/data/monthly-occurence-statistics.csv';
+const outputFilePath = 'C:/Users/mauran/Documents/COMP354_app/web_interface/data/yearly-occurence-statistics.csv';
 var outputContent = 'Sample Content';
 const monthlyOSArr = [];  //monthlyOccurenceStatistics array to group months of a given year
 

@@ -7,8 +7,10 @@
 
 const fs = require('fs');
 const { parse } = require("csv-parse");
-const inputFilePath = '../../../data/workout-summaries.csv';
-const outputFilePath = '../../../data/daily-occurence-statistics.csv';
+const path = require('path');
+// const inputFilePath = '../../../data/workout-summaries.csv';
+const inputFilePath = 'C:/Users/mauran/Documents/COMP354_app/web_interface/data/workout-summaries.csv';
+const outputFilePath = 'C:/Users/mauran/Documents/COMP354_app/web_interface/data/daily-occurence-statistics.csv';
 var outputContent = 'Sample Content';
 const dailyWorkoutsArr = [];
 
