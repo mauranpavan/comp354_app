@@ -1,2 +1,2 @@
 workoutSummaryId,filterType,date,caloriesSum,distanceSum,durationSum,topSpeed,avgSpeed,overallBestSplit,numberOfWorkouts,avgCalories,avgDistance,avgDuration,movingSpeedAvg
-2022,yearly,2022-04-25,38946,2308.5,191.70000000000002,40,0.027266666666666665,y-42,150,259.64,15.39,1.278,y-test
+2022,yearly,2022-04-25,38946,2308.5,191.70000000000002,40,0.027266666666666665,y-42,150,259.64,15.39,1.278,0.011205479452054794

@@ -501,7 +501,7 @@ function aggregateDailyOSIntoWeeklyOS(weekNumArr) {
             calculateAverageCalories(weekNumArr),                   //avgCalories
             calculateAverageDistance(weekNumArr),                   //avgDistance
             calculateAverageDuration(weekNumArr),                   //avgDuration
-            calculateMovingAverageSpeed()                           //movingSpeedAvg   /* incomplete */
+            calculateMovingAverageSpeed(weekNumArr)                 //movingSpeedAvg   
         );
         return newWeeklyOccurenceStatistics;
     }
@@ -633,8 +633,25 @@ function calculateAverageDuration(weekNumArr) {
 }
 
 //Calculate mov average speed
-function calculateMovingAverageSpeed() {
+function calculateMovingAverageSpeed(weekNumArr) {
+    /**
+     * SMA = (A1 + A2 + ……….An) / n 
+        A is the average in period n
+        n is the number of periods  --> n = 7 day moving average
+     */
 
-    return 'w-test';
+    var avgSpeedArr = [];
+    var avgSpeedSum = 0;
+    var period = 7;
+
+    weekNumArr.filter(DailyOccurenceStatistics => {
+        avgSpeedArr.push(parseFloat(parseFloat(DailyOccurenceStatistics.avgSpeed).toFixed(2)));
+    });
+
+    avgSpeedArr.filter(x => {
+        avgSpeedSum += parseFloat(x);
+    });
+
+    return avgSpeedSum / period;
 
 }

@@ -6,7 +6,12 @@ const path = require('path');
 //dayjs module
 const dayjs = require('dayjs');
 var isoWeek = require('dayjs/plugin/isoWeek'); //ISO
+var isoWeeksInYear = require('dayjs/plugin/isoWeeksInYear')
+var isLeapYear = require('dayjs/plugin/isLeapYear');
+
 dayjs.extend(isoWeek);
+dayjs.extend(isoWeeksInYear);
+dayjs.extend(isLeapYear);
 
 const inputFilePath = path.resolve('../../web_interface/data/monthly-occurence-statistics.csv');
 const outputFilePath = path.resolve('../../web_interface/data/yearly-occurence-statistics.csv');
@@ -274,7 +279,7 @@ function aggregateMonthlyOSIntoYearlyOS(yearNum, yearNumArr) {
             calculateAverageCalories(yearNumArr),                   //avgCalories
             calculateAverageDistance(yearNumArr),                   //avgDistance
             calculateAverageDuration(yearNumArr),                   //avgDuration
-            calculateMovingAverageSpeed()                           //movingSpeedAvg   /* incomplete */
+            calculateMovingAverageSpeed(yearNumArr)                           //movingSpeedAvg   /* incomplete */
         );
         return newYearlyOccurenceStatistics;
     }
@@ -402,8 +407,26 @@ function calculateAverageDuration(yearNumArr) {
 }
 
 //Calculate mov average speed
-function calculateMovingAverageSpeed() {
+function calculateMovingAverageSpeed(yearNumArr) {
+    var avgSpeedArr = [];
+    var avgSpeedSum = 0;
+    var period = 365;
 
-    return 'y-test';
+    // this will give the rank number for a given date. By putting the last day of the year, we can get the number of days in a year.
+    var numberOfWeeksInYear = dayjs(yearNumArr[0].date).isoWeeksInYear();
+
+    //Accounts for leap year
+    if (numberOfWeeksInYear == 53)
+        period = 366;
+
+    yearNumArr.filter(MonthlyOccurenceStatistics => {
+        avgSpeedArr.push(parseFloat(parseFloat(MonthlyOccurenceStatistics.avgSpeed).toFixed(2)));
+    });
+
+    avgSpeedArr.filter(x => {
+        avgSpeedSum += parseFloat(x);
+    });
+
+    return avgSpeedSum / period;
 
 }

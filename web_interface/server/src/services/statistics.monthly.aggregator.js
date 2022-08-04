@@ -6,7 +6,9 @@ const path = require('path');
 //dayjs module
 const dayjs = require('dayjs');
 var isoWeek = require('dayjs/plugin/isoWeek'); //ISO
+//var daysInMonth = require('dayjs/plugin/daysInMonth');
 dayjs.extend(isoWeek);
+//dayjs.extend(daysInMonth)
 
 const inputFilePath = path.resolve('../../web_interface/data/weekly-occurence-statistics.csv');
 const outputFilePath = path.resolve('../../web_interface/data/monthly-occurence-statistics.csv');
@@ -283,7 +285,7 @@ function aggregateWeeklyOSIntoMonthlyOS(monthNum, monthNumArr) {
             calculateAverageCalories(monthNumArr),                   //avgCalories
             calculateAverageDistance(monthNumArr),                   //avgDistance
             calculateAverageDuration(monthNumArr),                   //avgDuration
-            calculateMovingAverageSpeed()                           //movingSpeedAvg   /* incomplete */
+            calculateMovingAverageSpeed(monthNumArr)                 //movingSpeedAvg  
         );
         return newMonthlyOccurenceStatistics;
     }
@@ -411,8 +413,24 @@ function calculateAverageDuration(monthNumArr) {
 }
 
 //Calculate mov average speed
-function calculateMovingAverageSpeed() {
+function calculateMovingAverageSpeed(monthNumArr) {
+    /**
+         * SMA = (A1 + A2 + ……….An) / n 
+            A is the average in period n
+            n is the number of periods  --> n = 28, 29, 30 or day moving average for months
+    */
 
-    return 'm-test';
+    var avgSpeedArr = [];
+    var avgSpeedSum = 0;
+    var period = dayjs(monthNumArr[0].date).daysInMonth();// this will give number of days in a month
 
+    monthNumArr.filter(WeeklyOccurenceStatistics => {
+        avgSpeedArr.push(parseFloat(parseFloat(WeeklyOccurenceStatistics.avgSpeed).toFixed(2)));
+    });
+
+    avgSpeedArr.filter(x => {
+        avgSpeedSum += parseFloat(x);
+    });
+
+    return avgSpeedSum / period;
 }

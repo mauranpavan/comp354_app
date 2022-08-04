@@ -16,3 +16,13 @@
 4. For the front end, go to /client folder in another terminal.
 5. Run ```npm run start```. This should pull up your default browser on localhost:3000.
 
+
+## Team 9 - Overall Statistics
+
+The formula for Simple Moving Average is written as follows:
+
+SMA = (A1 + A2 + ……….An) / n
+Where:
+
+A is the average in period n
+n is the number of periods

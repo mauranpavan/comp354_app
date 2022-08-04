@@ -157,7 +157,7 @@ function computeStatisticsForNonDuplicateWorkouts(nonDuplicateDailyOccurenceStat
         nonDuplicateDailyOccurenceStatistics.caloriesSum,       //avgCalories       //since numberOfWorkouts is 1, this is unaffected
         nonDuplicateDailyOccurenceStatistics.distanceSum,       //avgDistance       //since numberOfWorkouts is 1, this is unaffected
         nonDuplicateDailyOccurenceStatistics.durationSum,       //avgDuration       //since numberOfWorkouts is 1, this is unaffected
-        calculateMovingAverageSpeed()                           //movingSpeedAvg   /* incomplete */
+        calculateMovingAverageSpeed()                           //movingSpeedAvg   
     );
 
     return newDailyOccurenceStatistics;
@@ -191,7 +191,8 @@ function aggregateMultipleWorkoutsIntoDaily(duplicateDateItem) {
         calculateAverageCalories(sameDayWorkoutSummaryArr),     //avgCalories
         calculateAverageDistance(sameDayWorkoutSummaryArr),     //avgDistance
         calculateAverageDuration(sameDayWorkoutSummaryArr),     //avgDuration
-        calculateMovingAverageSpeed()                           //movingSpeedAvg   /* incomplete */
+        calculateAverageDuration(sameDayWorkoutSummaryArr),     //movingSpeedAvg
+        //calculateMovingAverageSpeed(sameDayWorkoutSummaryArr)   //movingSpeedAvg   
     );
 
     console.log("Aggregated workout summaries for the ones that occured on the same day:")
@@ -342,9 +343,11 @@ function calculateAverageDuration(sameDayWorkoutSummaryArr) {
 }
 
 //Calculate mov average speed
-function calculateMovingAverageSpeed() {
-
-    return 'test';
+function calculateMovingAverageSpeed(sameDayWorkoutSummaryArr) {
+    /*
+    * Our assumption here is since Moving Average depend on the number of period and since the lowest period is a day,
+    * the Moving Average here would just be equal to the average speed.
+    */
 
 }
 
