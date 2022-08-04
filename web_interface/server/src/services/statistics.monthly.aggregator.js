@@ -1,16 +1,15 @@
 
 const fs = require('fs');
 const { parse } = require("csv-parse");
+const path = require('path');
 
 //dayjs module
 const dayjs = require('dayjs');
 var isoWeek = require('dayjs/plugin/isoWeek'); //ISO
 dayjs.extend(isoWeek);
 
-// const inputFilePath = '../../../data/weekly-occurence-statistics.csv'
-// const outputFilePath = '../../../data/monthly-occurence-statistics.csv'
-const inputFilePath = 'C:/Users/mauran/Documents/COMP354_app/web_interface/data/weekly-occurence-statistics.csv';
-const outputFilePath = 'C:/Users/mauran/Documents/COMP354_app/web_interface/data/monthly-occurence-statistics.csv';
+const inputFilePath = path.resolve('../../web_interface/data/weekly-occurence-statistics.csv');
+const outputFilePath = path.resolve('../../web_interface/data/monthly-occurence-statistics.csv');
 var outputContent = 'Sample Content';
 const weeklyOSArr = [];  //weeklyOccurenceStatistics array to group weeks of a month
 

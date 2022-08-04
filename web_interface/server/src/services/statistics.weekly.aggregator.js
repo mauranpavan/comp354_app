@@ -14,11 +14,8 @@ const path = require('path');
 const dayjs = require('dayjs');
 var isoWeek = require('dayjs/plugin/isoWeek'); //ISO
 dayjs.extend(isoWeek);
-// const inputFilePath = '../../../data/daily-occurence-statistics.csv'
-// const outputFilePath = '../../../data/weekly-occurence-statistics.csv'
-
-const inputFilePath = 'C:/Users/mauran/Documents/COMP354_app/web_interface/data/daily-occurence-statistics.csv';
-const outputFilePath = 'C:/Users/mauran/Documents/COMP354_app/web_interface/data/weekly-occurence-statistics.csv';
+const inputFilePath = path.resolve('../../web_interface/data/daily-occurence-statistics.csv');
+const outputFilePath = path.resolve('../../web_interface/data/weekly-occurence-statistics.csv');
 
 var outputContent = 'Sample Content';
 const dailyOSArr = [];  //dailyOccurenceStatistics array to group days of a week

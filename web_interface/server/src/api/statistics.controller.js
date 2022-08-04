@@ -1,10 +1,8 @@
 
 const express = require("express");
 let router = express.Router();
-//const { execFile } = require('child_process');
 const execSync = require('child_process').execSync;
 const path = require('path');
-const fs = require("fs");
 
 
 try {
