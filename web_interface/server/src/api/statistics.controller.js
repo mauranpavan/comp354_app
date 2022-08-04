@@ -3,6 +3,7 @@ const express = require("express");
 let router = express.Router();
 const execSync = require('child_process').execSync;
 const path = require('path');
+const fs = require('fs');
 
 
 try {
@@ -80,5 +81,28 @@ router.route("/")
 
         runYearlyAggregator();
     });
+
+router.route("/show/:range")
+    .get((req, res) => {
+        const { range } = req.params;
+        fs.readFile(`../data/${range}-occurence-statistics.csv`, 'utf-8', (err, data) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+
+            // Process data if you want/need
+
+            // const outputData = processData.processData(data, range, filter, stat);
+            // console.log(`Request for: ${range}, ${filter}, ${stat}`);
+
+
+            res.json({
+                "data": data
+            })
+        });
+    })
+
+// extra route for show workout summaries button
 
 module.exports = router;

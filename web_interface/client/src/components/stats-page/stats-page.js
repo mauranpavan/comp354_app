@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import { useStats } from './stats-page.hooks';
 
 export const Stats = () => {
 
+    const { backendData, onDailyClicked } = useStats();
 
     return (
         <div>
@@ -16,8 +18,7 @@ export const Stats = () => {
                     <p><a href="./web_interface/data/workout-summaries-stats.html">Workout Summaries</a></p>
                 </li>
                 <li>Aggregated WorkoutSummary data in terms of Daily Occurance
-                    <p><a href="./web_interface/data/daily-stats.html">Daily</a></p>
-
+                    <button onClick={onDailyClicked}>Daily</button>
                 </li>
                 <li>Aggregated WorkoutSummary data in terms of Weekly Occurance (using the previous occurance)
                     <p><a href="./web_interface/data/weekly-stats.html">Weekly</a></p>
@@ -29,6 +30,7 @@ export const Stats = () => {
                     <p><a href="./web_interface/data/yearly-stats.html">Yearly</a></p>
                 </li>
             </ul>
+            {backendData && backendData.data}
         </div>
     )
 }
