@@ -4,8 +4,6 @@ function processData(data, statistic) {
 
     let statSpecificData = 0;
     var tempArr = [];
-    var caloriesArr = [];
-    var durationArr = [];
 
     const rows = (data.split('\n').slice(1)).map(function (element) {
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { useStats } from './stats-page.hooks';
 import './stats-page.css';
+import { CsvToHtmlTable } from 'react-csv-to-table';
 
 //Icons
 import { BiCycling, BiRun, BiTime } from 'react-icons/bi';
@@ -37,7 +38,11 @@ export const Stats = () => {
                     <p><a href="./web_interface/data/yearly-stats.html">Yearly</a></p>
                 </li>
             </ul>
-            {backendData && backendData.data}
+            <CsvToHtmlTable
+                data={backendData && backendData.data}
+                csvDelimiter=","
+                tableClassName="table table-striped table-hover"
+            />
             <div className='stats-component-section'>
                 <h2>My Lifetime Stats</h2>
                 <table >

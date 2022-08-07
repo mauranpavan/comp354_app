@@ -82,7 +82,7 @@ router.route("/")
         runYearlyAggregator();
 
 
-        //Lifetime Statistics
+        //Extra Statistics include: Lifetime & Top Performance
         fs.readFile('../data/workout-summaries.csv', 'utf-8', (err, data) => {
             if (err) {
                 console.error(err);
