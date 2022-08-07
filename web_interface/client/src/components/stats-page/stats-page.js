@@ -38,7 +38,7 @@ export const Stats = () => {
                 </li>
             </ul>
             {backendData && backendData.data}
-            <div className='stats-lifetime-overview-section'>
+            <div className='stats-component-section'>
                 <h2>My Lifetime Stats</h2>
                 <table >
                     <tr>
@@ -97,6 +97,31 @@ export const Stats = () => {
                         <th className='stats-lifetime-table-body'> - </th>
                         <th className='stats-lifetime-table-body'> - </th>
                         <th className='stats-lifetime-table-body'> - </th>
+                    </tr>
+                </table>
+            </div>
+            <div className='stats-component-section'>
+                <h2>Top Performance</h2>
+                <table >
+                    <tr>
+                        <th>Farthest Distance</th>
+                        <th className="stats-top-performance-data">{extraStatisticsData && extraStatisticsData.topDistance}</th>
+                    </tr>
+                    <tr>
+                        <th>Most Energy Burned</th>
+                        <th className="stats-top-performance-data">{extraStatisticsData && extraStatisticsData.topCalories}</th>
+                    </tr>
+                    <tr>
+                        <th>Longest Workout Duration</th>
+                        <th className="stats-top-performance-data">{extraStatisticsData && extraStatisticsData.topDuration}</th>
+                    </tr>
+                    <tr>
+                        <th>Top Speed</th>
+                        <th className="stats-top-performance-data">{extraStatisticsData && extraStatisticsData.topSpeed}</th>
+                    </tr>
+                    <tr>
+                        <th>Highest Average Speed</th>
+                        <th className="stats-top-performance-data">{extraStatisticsData && extraStatisticsData.topAvgSpeed}</th>
                     </tr>
                 </table>
             </div>

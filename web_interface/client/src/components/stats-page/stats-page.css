@@ -32,8 +32,10 @@ table, th, td {
   }*/
 
 /*** Lifetime Overview ***/
-.stats-lifetime-overview-section{
-    margin:250px;
+.stats-component-section{
+    margin-left:250px;
+    margin-top:50px;
+    margin-bottom:50px;
 }
 .stats-lifetime-overview-header{
 
@@ -73,6 +75,14 @@ table, th, td {
     padding-top: 50px;
     padding-left: 30px; 
     padding-right: 30px;
-    
+}
 
+/*** Top Performance  ***/
+.stats-top-performance-data{
+
+    color: darkcyan;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 10px; 
+    padding-bottom: 10px; 
 }

@@ -4,7 +4,7 @@ let router = express.Router();
 const execSync = require('child_process').execSync;
 const path = require('path');
 const fs = require('fs');
-const processData = require("../services/lifetime.statistics.calculator");
+const processData = require("../services/extra.statistics.calculator");
 
 
 try {
@@ -89,17 +89,30 @@ router.route("/")
                 return;
             }
 
-            //workout__summary_id,date,calories,distance,duration,top_speed,average_speed,overall_best_split
+            //Lifetime Statistics
             let totalDistance = processData.processData(data, "distance");
             let totalCalories = processData.processData(data, "calories");
             let totalDuration = processData.processData(data, "duration");
             let totalWorkouts = processData.processData(data, "workouts");
+
+            //Top Performance Statistics
+            var topDistance = processData.processData(data, "topDistance");
+            var topCalories = processData.processData(data, "topCalories");
+            var topDuration = processData.processData(data, "topDuration");
+            var topSpeed = processData.processData(data, "topSpeed");
+            var topAvgSpeed = processData.processData(data, "topAvgSpeed");
 
             res.json({
                 "distance": totalDistance,
                 "calories": totalCalories,
                 "duration": totalDuration,
                 "workouts": totalWorkouts,
+                //Top Performance
+                "topDistance": topDistance,
+                "topCalories": topCalories,
+                "topDuration": topDuration,
+                "topSpeed": topSpeed,
+                "topAvgSpeed": topAvgSpeed
             })
         });
 

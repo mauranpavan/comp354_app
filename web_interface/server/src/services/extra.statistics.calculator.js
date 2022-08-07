@@ -3,6 +3,10 @@
 function processData(data, statistic) {
 
     let statSpecificData = 0;
+    var tempArr = [];
+    var caloriesArr = [];
+    var durationArr = [];
+
     const rows = (data.split('\n').slice(1)).map(function (element) {
 
         //workout__summary_id,date,calories,distance,duration,top_speed,average_speed,overall_best_split
@@ -40,6 +44,42 @@ function processData(data, statistic) {
 
         case "workouts":
             statSpecificData = Number(rows.length);
+            break;
+
+        //Top Performance    
+        case "topDistance":
+            rows.map(function (element) {
+                tempArr.push(Number(element.distance));
+            });
+            statSpecificData = Math.max.apply(Math, tempArr);
+            break;
+
+        case "topDuration":
+            rows.map(function (element) {
+                tempArr.push(Number(element.duration));
+            });
+            statSpecificData = Math.max.apply(Math, tempArr);
+            break;
+
+        case "topCalories":
+            rows.map(function (element) {
+                tempArr.push(Number(element.calories));
+            });
+            statSpecificData = Math.max.apply(Math, tempArr);
+            break;
+
+        case "topSpeed":
+            rows.map(function (element) {
+                tempArr.push(Number(element.top_speed));
+            });
+            statSpecificData = Math.max.apply(Math, tempArr);
+            break;
+
+        case "topAvgSpeed":
+            rows.map(function (element) {
+                tempArr.push(Number(element.average_speed));
+            });
+            statSpecificData = Math.max.apply(Math, tempArr);
             break;
 
     };
