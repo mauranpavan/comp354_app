@@ -4,6 +4,7 @@ let router = express.Router();
 const execSync = require('child_process').execSync;
 const path = require('path');
 const fs = require('fs');
+const processData = require("../services/lifetime.statistics.calculator");
 
 
 try {
@@ -13,7 +14,6 @@ try {
     var yearFile = path.resolve('src/services', 'statistics.yearly.aggregator.js');
 } catch (error) {
     throw error
-
 }
 
 
@@ -24,11 +24,11 @@ try {
 
 router.route("/")
     .get((req, res) => {
-        res.json({ "message": "All the statistics aggregator files have been run." });
+        // res.json({ "message": "All the statistics aggregator files have been run." });
         console.log("GET /stats/");
 
         /**
-         * Delete existing files
+         * To do if necessary: Delete existing files ?
          * 
          */
 
@@ -80,6 +80,30 @@ router.route("/")
         }
 
         runYearlyAggregator();
+
+
+        //Lifetime Statistics
+        fs.readFile('../data/workout-summaries.csv', 'utf-8', (err, data) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+
+            //workout__summary_id,date,calories,distance,duration,top_speed,average_speed,overall_best_split
+            let totalDistance = processData.processData(data, "distance");
+            let totalCalories = processData.processData(data, "calories");
+            let totalDuration = processData.processData(data, "duration");
+            let totalWorkouts = processData.processData(data, "workouts");
+
+            res.json({
+                "distance": totalDistance,
+                "calories": totalCalories,
+                "duration": totalDuration,
+                "workouts": totalWorkouts,
+            })
+        });
+
+
     });
 
 router.route("/show/:range")

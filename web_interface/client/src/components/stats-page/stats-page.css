@@ -1,0 +1,78 @@
+nav {
+    margin: 5px 10px;
+}
+
+.stats-header {
+    margin: 0px 10px;
+}
+
+.stats-body {
+    display: block;
+    border-top: 1px solid grey;
+    margin: 0px 10px;
+}
+
+.stats-viewport {
+    margin: 30px 0px;
+}
+
+.parameters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 80%;
+}
+
+.description {
+    max-width: 50%;
+}/*
+
+table, th, td {
+    border:1px solid black;
+  }*/
+
+/*** Lifetime Overview ***/
+.stats-lifetime-overview-section{
+    margin:250px;
+}
+.stats-lifetime-overview-header{
+
+    color: darkcyan;
+    font-size: larger;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 50px;
+}
+
+.stats-lifetime-overview-body{
+
+    font-weight: 100px;
+    font-style: normal;
+    font-size: medium;
+    color:gray;   
+}
+
+.stats-lifetime-table  {
+       margin-top:20px;
+  }
+
+.stats-lifetime-table-header  {
+   
+    font-style: bold;
+    padding-top: 50px;
+    padding-left: 50px;
+    padding-right: 50px;
+
+}
+
+.stats-lifetime-table-body  {
+  
+    font-weight: 1px;
+    font-style: normal;
+    color:gray;  
+    padding-top: 50px;
+    padding-left: 30px; 
+    padding-right: 30px;
+    
+
+}
