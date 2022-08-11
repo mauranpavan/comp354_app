@@ -10,6 +10,8 @@ export const Home = () => {
             {/* NOTE: Teams 9 and 10 will add links to their pages here in this nav. */}
             <nav>
                 <Link to="/charts">Charts</Link>
+                <br></br>  
+                <Link to="/stats">Stats</Link>
             </nav>
             <div className="home-header">
                 <h1>Workout Statistics & Visualization</h1>
