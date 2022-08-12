@@ -122,22 +122,36 @@ router.route("/")
 router.route("/show/:range")
     .get((req, res) => {
         const { range } = req.params;
-        fs.readFile(`../data/${range}-occurence-statistics.csv`, 'utf-8', (err, data) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
 
-            // Process data if you want/need
+        if (range == 'workout-summaries') {
+            fs.readFile(`../data/${range}.csv`, 'utf-8', (err, data) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
+                res.json({
+                    "data": data
+                })
+            });
+        }
+        else {
+            fs.readFile(`../data/${range}-occurence-statistics.csv`, 'utf-8', (err, data) => {
+                if (err) {
+                    console.error(err);
+                    return;
+                }
 
-            // const outputData = processData.processData(data, range, filter, stat);
-            // console.log(`Request for: ${range}, ${filter}, ${stat}`);
+                // Process data if you want/need
+
+                // const outputData = processData.processData(data, range, filter, stat);
+                // console.log(`Request for: ${range}, ${filter}, ${stat}`);
 
 
-            res.json({
-                "data": data
-            })
-        });
+                res.json({
+                    "data": data
+                })
+            });
+        }
     })
 
 // extra route for show workout summaries button

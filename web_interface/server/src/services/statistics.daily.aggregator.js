@@ -106,38 +106,41 @@ function findSameDayWorkouts() {
         }
     });
 
-    const duplicateSet = new Set(duplicates); //We would need to aggregate workout summaries of multiple workouts done in the same day into 1 daily workout_summary
+    const duplicateDateSet = new Set(duplicates); //We would need to aggregate workout summaries of multiple workouts done in the same day into 1 daily workout_summary
 
     console.log("The duplicate dates:");
-    console.log(duplicateSet);
+    console.log(duplicateDateSet);
 
     //Write Output file header
     outputContent = 'workoutSummaryId,filterType,date,caloriesSum,distanceSum,durationSum,topSpeed,avgSpeed,overallBestSplit,numberOfWorkouts,avgCalories,avgDistance,avgDuration,movingSpeedAvg\n';
     writeOutputFile();
-    writeDailyWorkoutSummary(duplicateSet);
+    writeDailyWorkoutSummary(duplicateDateSet);
 
 }
 
 //Cleaned data
-function writeDailyWorkoutSummary(duplicateSet) {
+function writeDailyWorkoutSummary(duplicateDateSet) {
     var previousDuplicateDateItem;
+    //This bool flag is used to write the non duplicate DailyOccurenceStatistics only once and not according to the size of duplicateDateSet
+    var firstReadOfDailyWorkoutsArr = true;
+    var tempArr = Array.from(duplicateDateSet);
 
-    for (let duplicateDateItem of duplicateSet) {
+    for (let duplicateDateItem of duplicateDateSet) {
         dailyWorkoutsArr.filter(DailyOccurenceStatistics => {
             if (DailyOccurenceStatistics.date == duplicateDateItem && DailyOccurenceStatistics.date != previousDuplicateDateItem) {
                 outputContent = `${aggregateMultipleWorkoutsIntoDaily(duplicateDateItem)} \n`;
-                //outputContent = `${ aggregateMultipleWorkoutsIntoDaily(duplicateDateItem) } duplicate \n`; //For testing
+                //outputContent = `${aggregateMultipleWorkoutsIntoDaily(duplicateDateItem)} duplicate \n`; //For testing
                 previousDuplicateDateItem = DailyOccurenceStatistics.date;   //assumption: data is ordered from the input file, so all the duplicates are consecutive
 
                 writeOutputFile();
             }
-            else if (DailyOccurenceStatistics.date != duplicateDateItem) {
+            else if (!tempArr.includes(DailyOccurenceStatistics.date) && firstReadOfDailyWorkoutsArr) {
                 //set output file content
-                outputContent = `${computeStatisticsForNonDuplicateWorkouts(DailyOccurenceStatistics)} \n`;
+                outputContent = `${computeStatisticsForNonDuplicateWorkouts(DailyOccurenceStatistics)} \n `;
                 writeOutputFile();
             }
-
         });
+        firstReadOfDailyWorkoutsArr = false;
     }
 }
 
@@ -157,7 +160,9 @@ function computeStatisticsForNonDuplicateWorkouts(nonDuplicateDailyOccurenceStat
         nonDuplicateDailyOccurenceStatistics.caloriesSum,       //avgCalories       //since numberOfWorkouts is 1, this is unaffected
         nonDuplicateDailyOccurenceStatistics.distanceSum,       //avgDistance       //since numberOfWorkouts is 1, this is unaffected
         nonDuplicateDailyOccurenceStatistics.durationSum,       //avgDuration       //since numberOfWorkouts is 1, this is unaffected
-        calculateMovingAverageSpeed()                           //movingSpeedAvg   
+        nonDuplicateDailyOccurenceStatistics.avgSpeed           //movingSpeedAvg   
+        // calculateMovingAverageSpeed()                           //movingSpeedAvg   
+
     );
 
     return newDailyOccurenceStatistics;
@@ -191,12 +196,12 @@ function aggregateMultipleWorkoutsIntoDaily(duplicateDateItem) {
         calculateAverageCalories(sameDayWorkoutSummaryArr),     //avgCalories
         calculateAverageDistance(sameDayWorkoutSummaryArr),     //avgDistance
         calculateAverageDuration(sameDayWorkoutSummaryArr),     //avgDuration
-        calculateAverageDuration(sameDayWorkoutSummaryArr),     //movingSpeedAvg
+        calculateAverageSpeed(sameDayWorkoutSummaryArr),     //movingSpeedAvg
         //calculateMovingAverageSpeed(sameDayWorkoutSummaryArr)   //movingSpeedAvg   
     );
 
-    console.log("Aggregated workout summaries for the ones that occured on the same day:")
-    console.log(newDailyOccurenceStatistics);
+    //console.log("Aggregated workout summaries for the ones that occured on the same day:")
+    //console.log(newDailyOccurenceStatistics);
 
     return newDailyOccurenceStatistics;
 }
@@ -359,6 +364,7 @@ function deleteExistingFile(outputFilePath) {
                 if (err)
                     console.error(err);
             });
+            console.log('Previous file deleted');
         }
     } catch (err) {
         console.error(err)

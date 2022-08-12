@@ -531,7 +531,7 @@ function caloriesSum(weekNumArr) {
         caloriesSum += parseFloat(parseFloat(DailyOccurenceStatistics.caloriesSum).toFixed(2));
     });
     // console.log("=========" + caloriesSum);
-    return caloriesSum;
+    return caloriesSum.toFixed(2);
 }
 
 
@@ -543,7 +543,7 @@ function distanceSum(weekNumArr) {
         distanceSum += parseFloat(parseFloat(DailyOccurenceStatistics.distanceSum).toFixed(2));
     });
 
-    return distanceSum;
+    return distanceSum.toFixed(2);
 }
 
 //Calculate total duration - Weekly Occurance 
@@ -554,7 +554,7 @@ function durationSum(weekNumArr) {
         durationSum += parseFloat(parseFloat(DailyOccurenceStatistics.durationSum).toFixed(2));
     });
 
-    return durationSum;
+    return durationSum.toFixed(2);
 }
 
 //Select Top Speed - Weekly Occurance 
@@ -602,7 +602,7 @@ function calculateAverageSpeed(weekNumArr) {
         avgSpeedSum += parseFloat(x);
     });
 
-    return avgSpeedSum / numberOfWorkout(weekNumArr);
+    return (avgSpeedSum / numberOfWorkout(weekNumArr)).toFixed(2);
 }
 
 //select best split?           /*  TO DO?   */
@@ -614,21 +614,21 @@ function selectOverallBestSplit(weekNumArr) {
 //Calculate average calories - Weekly Occurance   /*  REDO?   */
 function calculateAverageCalories(weekNumArr) {
 
-    return caloriesSum(weekNumArr) / numberOfWorkout(weekNumArr);
+    return (caloriesSum(weekNumArr) / numberOfWorkout(weekNumArr)).toFixed(2);
 
 }
 
 //Calculate average distance - Weekly Occurance   /*  REDO?   */
 function calculateAverageDistance(weekNumArr) {
 
-    return distanceSum(weekNumArr) / numberOfWorkout(weekNumArr);
+    return (distanceSum(weekNumArr) / numberOfWorkout(weekNumArr)).toFixed(2);
 
 }
 
 //Calculate average duration - Weekly Occurance   /*  REDO?   */
 function calculateAverageDuration(weekNumArr) {
 
-    return durationSum(weekNumArr) / numberOfWorkout(weekNumArr);
+    return (durationSum(weekNumArr) / numberOfWorkout(weekNumArr)).toFixed(2);
 
 }
 
@@ -652,6 +652,6 @@ function calculateMovingAverageSpeed(weekNumArr) {
         avgSpeedSum += parseFloat(x);
     });
 
-    return avgSpeedSum / period;
+    return (avgSpeedSum / period).toFixed(2);
 
 }

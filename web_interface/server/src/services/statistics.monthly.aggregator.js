@@ -311,7 +311,7 @@ function caloriesSum(monthNumArr) {
         caloriesSum += parseFloat(parseFloat(WeeklyOccurenceStatistics.caloriesSum).toFixed(2));
     });
     // console.log("=========" + caloriesSum);
-    return caloriesSum;
+    return caloriesSum.toFixed(2);
 }
 
 
@@ -323,7 +323,7 @@ function distanceSum(monthNumArr) {
         distanceSum += parseFloat(parseFloat(WeeklyOccurenceStatistics.distanceSum).toFixed(2));
     });
 
-    return distanceSum;
+    return distanceSum.toFixed(2);
 }
 
 //Calculate total duration - Monthly Occurance 
@@ -334,7 +334,7 @@ function durationSum(monthNumArr) {
         durationSum += parseFloat(parseFloat(WeeklyOccurenceStatistics.durationSum).toFixed(2));
     });
 
-    return durationSum;
+    return durationSum.toFixed(2);
 }
 
 //Select Top Speed - Monthly Occurance 
@@ -382,7 +382,7 @@ function calculateAverageSpeed(monthNumArr) {
         avgSpeedSum += parseFloat(x);
     });
 
-    return avgSpeedSum / numberOfWorkout(monthNumArr);
+    return (avgSpeedSum / numberOfWorkout(monthNumArr)).toFixed(2);
 }
 
 //select best split?           /*  TO DO?   */
@@ -394,21 +394,21 @@ function selectOverallBestSplit(monthNumArr) {
 //Calculate average calories - Monthly Occurance   /*  REDO?   */
 function calculateAverageCalories(monthNumArr) {
 
-    return caloriesSum(monthNumArr) / numberOfWorkout(monthNumArr);
+    return (caloriesSum(monthNumArr) / numberOfWorkout(monthNumArr)).toFixed(2);
 
 }
 
 //Calculate average distance - Monthly Occurance   /*  REDO?   */
 function calculateAverageDistance(monthNumArr) {
 
-    return distanceSum(monthNumArr) / numberOfWorkout(monthNumArr);
+    return (distanceSum(monthNumArr) / numberOfWorkout(monthNumArr)).toFixed(2);
 
 }
 
 //Calculate average duration - Monthly Occurance   /*  REDO?   */
 function calculateAverageDuration(monthNumArr) {
 
-    return durationSum(monthNumArr) / numberOfWorkout(monthNumArr);
+    return (durationSum(monthNumArr) / numberOfWorkout(monthNumArr)).toFixed(2);
 
 }
 
@@ -432,5 +432,5 @@ function calculateMovingAverageSpeed(monthNumArr) {
         avgSpeedSum += parseFloat(x);
     });
 
-    return avgSpeedSum / period;
+    return (avgSpeedSum / period).toFixed(2);
 }

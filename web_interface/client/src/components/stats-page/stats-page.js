@@ -12,7 +12,8 @@ import { GiPathDistance } from 'react-icons/gi';
 
 export const Stats = () => {
 
-    const { backendData, onDailyClicked, extraStatisticsData } = useStats();
+    const { backendData, onDailyClicked, onWeeklyClicked, onMonthlyClicked, onYearlyClicked, onWorkoutSummariesClicked,
+        extraStatisticsData } = useStats();
 
     return (
         <div>
@@ -20,29 +21,6 @@ export const Stats = () => {
             <nav>
                 <Link to="/">Home</Link>
             </nav>
-            <p>Here are the overall statistics</p>
-            <ul>
-                <li>Retrieve all WorkoutSummary records gathered by Group 8
-                    <p><a href="./web_interface/data/workout-summaries-stats.html">Workout Summaries</a></p>
-                </li>
-                <li>Aggregated WorkoutSummary data in terms of Daily Occurance
-                    <button onClick={onDailyClicked}>Daily</button>
-                </li>
-                <li>Aggregated WorkoutSummary data in terms of Weekly Occurance (using the previous occurance)
-                    <p><a href="./web_interface/data/weekly-stats.html">Weekly</a></p>
-                </li>
-                <li>Aggregated WorkoutSummary data in terms of Monthly Occurance (using the previous occurance)
-                    <p><a href="./web_interface/data/monthly-stats.html">Monthly</a></p>
-                </li>
-                <li>Aggregated WorkoutSummary data in terms of Yearly Occurance (using the previous occurance)
-                    <p><a href="./web_interface/data/yearly-stats.html">Yearly</a></p>
-                </li>
-            </ul>
-            <CsvToHtmlTable
-                data={backendData && backendData.data}
-                csvDelimiter=","
-                tableClassName="table table-striped table-hover"
-            />
             <div className='stats-component-section'>
                 <h2>My Lifetime Stats</h2>
                 <table >
@@ -130,6 +108,29 @@ export const Stats = () => {
                     </tr>
                 </table>
             </div>
+            <p>Here are the overall statistics</p>
+            <ul>
+                <li>Retrieve all WorkoutSummary records gathered by Group 8
+                    <button onClick={onWorkoutSummariesClicked}>Workout Summaries</button>
+                </li>
+                <li>Aggregated WorkoutSummary data in terms of Daily Occurance
+                    <button onClick={onDailyClicked}>Daily</button>
+                </li>
+                <li>Aggregated WorkoutSummary data in terms of Weekly Occurance (using the previous occurance)
+                    <button onClick={onWeeklyClicked}>Weekly</button>
+                </li>
+                <li>Aggregated WorkoutSummary data in terms of Monthly Occurance (using the previous occurance)
+                    <button onClick={onMonthlyClicked}>Monthly</button>
+                </li>
+                <li>Aggregated WorkoutSummary data in terms of Yearly Occurance (using the previous occurance)
+                    <button onClick={onYearlyClicked}>Yearly</button>
+                </li>
+            </ul>
+            <CsvToHtmlTable
+                data={backendData && backendData.data}
+                csvDelimiter=","
+                tableClassName="table table-striped table-hover"
+            />
         </div >
     )
 }

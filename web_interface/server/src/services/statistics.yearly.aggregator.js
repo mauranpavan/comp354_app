@@ -305,7 +305,7 @@ function caloriesSum(yearNumArr) {
         caloriesSum += parseFloat(parseFloat(MonthlyOccurenceStatistics.caloriesSum).toFixed(2));
     });
     // console.log("=========" + caloriesSum);
-    return caloriesSum;
+    return caloriesSum.toFixed(2);
 }
 
 
@@ -317,7 +317,7 @@ function distanceSum(yearNumArr) {
         distanceSum += parseFloat(parseFloat(MonthlyOccurenceStatistics.distanceSum).toFixed(2));
     });
 
-    return distanceSum;
+    return distanceSum.toFixed(2);
 }
 
 //Calculate total duration - Monthly Occurance 
@@ -328,7 +328,7 @@ function durationSum(yearNumArr) {
         durationSum += parseFloat(parseFloat(MonthlyOccurenceStatistics.durationSum).toFixed(2));
     });
 
-    return durationSum;
+    return durationSum.toFixed(2);
 }
 
 //Select Top Speed - Monthly Occurance 
@@ -376,7 +376,7 @@ function calculateAverageSpeed(yearNumArr) {
         avgSpeedSum += parseFloat(x);
     });
 
-    return avgSpeedSum / numberOfWorkout(yearNumArr);
+    return (avgSpeedSum / numberOfWorkout(yearNumArr)).toFixed(2);
 }
 
 //select best split?           /*  TO DO?   */
@@ -388,21 +388,21 @@ function selectOverallBestSplit(yearNumArr) {
 //Calculate average calories - Monthly Occurance   /*  REDO?   */
 function calculateAverageCalories(yearNumArr) {
 
-    return caloriesSum(yearNumArr) / numberOfWorkout(yearNumArr);
+    return (caloriesSum(yearNumArr) / numberOfWorkout(yearNumArr)).toFixed(2);
 
 }
 
 //Calculate average distance - Monthly Occurance   /*  REDO?   */
 function calculateAverageDistance(yearNumArr) {
 
-    return distanceSum(yearNumArr) / numberOfWorkout(yearNumArr);
+    return (distanceSum(yearNumArr) / numberOfWorkout(yearNumArr)).toFixed(2);
 
 }
 
 //Calculate average duration - Monthly Occurance   /*  REDO?   */
 function calculateAverageDuration(yearNumArr) {
 
-    return durationSum(yearNumArr) / numberOfWorkout(yearNumArr);
+    return (durationSum(yearNumArr) / numberOfWorkout(yearNumArr)).toFixed(2);
 
 }
 
@@ -427,6 +427,6 @@ function calculateMovingAverageSpeed(yearNumArr) {
         avgSpeedSum += parseFloat(x);
     });
 
-    return avgSpeedSum / period;
+    return (avgSpeedSum / period).toFixed(2);
 
 }
