@@ -19,6 +19,23 @@
 
 ## Team 9 - Overall Statistics
 
+Here is a diagram to showcase the approximate flow between teams at the current state.
+
+<img
+  src="web_interface\data\images\diagram1.PNG"
+  title="Diagram Part 1"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+
+<img
+  src="web_interface\data\images\diagram2.PNG"
+  title="Diagram Part 2"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+
+
+
+
+
+
 The formula for Simple Moving Average is written as follows:
 
 SMA = (A1 + A2 + ……….An) / n
