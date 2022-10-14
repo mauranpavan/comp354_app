@@ -43,4 +43,3 @@ Where:
 
 A is the average in period n
 n is the number of periods
-# comp354_app
