@@ -1,4 +1,4 @@
-# Team 11 - Workout Statistic Visualizer (WSV)
+# Team Web Interface - Workout Statistic Visualizer (WSV)
 
 ## Setup
 
@@ -15,6 +15,13 @@
 3. Run ```npm run dev``` for development (with nodemon), ```npm run start``` to run normally.
 4. For the front end, go to /client folder in another terminal.
 5. Run ```npm run start```. This should pull up your default browser on localhost:3000.
+<hr >
+
+## Integration Video
+
+
+https://user-images.githubusercontent.com/60101999/196007581-c5efa6d5-f6bf-4030-9630-38a7401e3e1a.mp4
+
 
 
 ## Team 9 - Overall Statistics
